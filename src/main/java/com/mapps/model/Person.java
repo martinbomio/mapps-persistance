@@ -5,6 +5,8 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.validator.constraints.Email;
+
 /**
  * Representation of a person to the system. Abstraction for reuse.
  */
@@ -15,6 +17,7 @@ public abstract class Person{
     @Temporal(TemporalType.DATE)
     protected Date birth;
     protected String gender;
+    @Email
     protected String email;
 
     public String getName() {
