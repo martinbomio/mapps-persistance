@@ -12,8 +12,6 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "Institutions" )
-
-
 public class Institution {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
