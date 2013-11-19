@@ -6,12 +6,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 
 /**
  * Represents an Athlete in the model. Atheletes are the ones that wear the devices
  */
 @Entity
+@Table(name = "Athletes")
 public class Athlete extends Person{
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)

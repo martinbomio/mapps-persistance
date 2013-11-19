@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Parameter;
@@ -34,12 +35,16 @@ public class User extends Person{
     @Column(nullable = false)
     @Type(type="encryptedString")
     private String password;
+    @ManyToOne
+    private Institution institution;
+    @ManyToOne
+    private Role role;
 
     public User() {
     }
 
     public User(String name, String lastName, Date birth, String gender,
-                String email, String userName, String password){
+                String email, String userName, String password, Institution institution, Role role){
         this.name = name;
         this.lastName = lastName;
         this.birth = birth;
@@ -47,6 +52,8 @@ public class User extends Person{
         this.email = email;
         this.userName = userName;
         this.password = password;
+        this.institution = institution;
+        this.role = role;
     }
 
     public Long getId() {
@@ -71,5 +78,21 @@ public class User extends Person{
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Institution getInstitution() {
+        return institution;
+    }
+
+    public void setInstitution(Institution institution) {
+        this.institution = institution;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }
