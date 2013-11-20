@@ -9,11 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Usuario1
- * Date: 20/11/13
- * Time: 07:44 PM
- * To change this template use File | Settings | File Templates.
+ *
  */
 public class InstitutionDAOImpl implements InstitutionDAO {
 

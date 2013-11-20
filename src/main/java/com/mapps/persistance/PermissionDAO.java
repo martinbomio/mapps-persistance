@@ -4,11 +4,7 @@ import com.mapps.exceptions.PermissionNotFoundException;
 import com.mapps.model.Permission;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Usuario1
- * Date: 20/11/13
- * Time: 08:41 PM
- * To change this template use File | Settings | File Templates.
+ * PermissionDAO interface
  */
 public interface PermissionDAO {
     /**
@@ -29,7 +25,7 @@ public interface PermissionDAO {
      * @param permission - The Permission identification id to find the Permission to update
      * @throws PermissionNotFoundException  - If the  is not in the database
      */
-    void updateInstitution(Permission permission) throws PermissionNotFoundException;
+    void updatePermission(Permission permission) throws PermissionNotFoundException;
 
     /**
      * This method gets a Permission from the database
@@ -37,5 +33,5 @@ public interface PermissionDAO {
      * @return - The Permission in the database
      * @throws PermissionNotFoundException - If the Permission is not in the database
      */
-    Permission getInstitutionById (Long permissionId) throws PermissionNotFoundException;
+    Permission getPermissionById (Long permissionId) throws PermissionNotFoundException;
 }
