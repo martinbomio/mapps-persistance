@@ -23,7 +23,7 @@ public interface InstitutionDAO {
 
     /**
      * This method updates a Institution in the database.
-     * @param institution - The Movie identification id to find the Movie to update
+     * @param institution - The Institution identification id to find the Institution to update
      * @throws InstitutionNotFoundException  - If the  is not in the database
      */
     void updateInstitution(Institution institution) throws InstitutionNotFoundException;
@@ -32,7 +32,7 @@ public interface InstitutionDAO {
      * This method gets a Institution from the database
      * @param institutionId - he Institution identification id to find the Institution in the database
      * @return - The Institution in the database
-     * @throws InstitutionNotFoundException - If the Movie is not in the database
+     * @throws InstitutionNotFoundException - If the Institution is not in the database
      */
     Institution getInstitutionById (Long institutionId) throws InstitutionNotFoundException;
 }
