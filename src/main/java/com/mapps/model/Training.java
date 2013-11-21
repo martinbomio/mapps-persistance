@@ -3,6 +3,7 @@ package com.mapps.model;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,7 +32,7 @@ public class Training {
     private Map<Athlete,Device> mapAthleteDevice;
     @Column(nullable=false)
     @OneToMany
-    private ArrayList<Report> reports;
+    private List<Report> reports;
     @Column(nullable=false)
     @ManyToOne
     private Sport sport;
@@ -131,11 +132,11 @@ public class Training {
         this.mapAthleteDevice = mapAthleteDevice;
     }
 
-    public ArrayList<Report> getReports() {
+    public List<Report> getReports() {
         return reports;
     }
 
-    public void setReports(ArrayList<Report> reports) {
+    public void setReports(List<Report> reports) {
         this.reports = reports;
     }
 

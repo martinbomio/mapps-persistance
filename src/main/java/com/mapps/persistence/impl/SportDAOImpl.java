@@ -10,11 +10,7 @@ import javax.ejb.Stateless;
 import org.apache.log4j.Logger;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Usuario1
- * Date: 21/11/13
- * Time: 09:26 AM
- * To change this template use File | Settings | File Templates.
+ *
  */
 @Stateless(name = "SportDao")
 public class SportDAOImpl implements SportDAO {
@@ -25,21 +21,37 @@ public class SportDAOImpl implements SportDAO {
 
     @Override
     public void addSport(Sport sport) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        logger.info("A sport was added to the database");
+        entityManager.persist(sport);
     }
 
     @Override
     public void deleteSport(Long sportId) throws SportNotFoundException {
-        //To change body of implemented methods use File | Settings | File Templates.
+        logger.info("A Sport was deleted from the database");
+        Sport sportAux =getSportById(sportId);
+        entityManager.remove(sportAux);
     }
 
     @Override
     public void updateSport(Sport sport) throws SportNotFoundException {
-        //To change body of implemented methods use File | Settings | File Templates.
+
+        Sport sportAux=getSportById(sport.getId());
+        if(sportAux!=null){
+            entityManager.merge(sportAux);
+            logger.info("A Sport has been updated");
+        }
     }
 
     @Override
     public Sport getSportById(Long sportId) throws SportNotFoundException {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+         Sport sportAux= entityManager.find(Sport.class,sportId);
+        if(sportAux!=null){
+            logger.info("A Sport was fetched from the database");
+            return sportAux;
+
+        }else{
+            logger.info("The sport is not in the database");
+            throw new SportNotFoundException();
+        }
     }
 }
