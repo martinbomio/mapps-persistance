@@ -22,7 +22,7 @@ public class DeviceDAOImpl implements DeviceDAO{
 
     @Override
     public void addDevice(Device device) {
-        logger.info("add Device to database");
+        logger.info("add a Device to database");
         entityManager.persist(device);
     }
 
