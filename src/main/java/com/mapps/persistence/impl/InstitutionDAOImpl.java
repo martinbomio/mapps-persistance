@@ -1,7 +1,13 @@
 package com.mapps.persistence.impl;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.apache.log4j.Logger;
+
 import com.mapps.exceptions.InstitutionNotFoundException;
 import com.mapps.model.Institution;
+import com.mapps.persistence.InstitutionDAO;
 import com.mapps.persistence.InstitutionDAO;
 import org.apache.log4j.Logger;
 

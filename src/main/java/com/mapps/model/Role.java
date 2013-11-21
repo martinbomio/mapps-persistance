@@ -3,6 +3,7 @@ package com.mapps.model;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
@@ -16,9 +17,13 @@ public class Role {
     public enum RoleType {
         ADMINISTRATOR, TRAINER, USER;
     };
-
+    @Id
     @Enumerated(EnumType.ORDINAL)
     public RoleType getRole(){
         return role;
+    }
+
+    public void setRole(RoleType role){
+        this.role = role;
     }
 }

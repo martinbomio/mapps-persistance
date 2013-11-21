@@ -9,23 +9,11 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Parameter;
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
-import org.jasypt.hibernate.type.EncryptedStringType;
-
 /**
  * Representation of the User of the system
  */
 @Entity
 @Table(name = "Users" )
-@TypeDef(
-        name="encryptedString",
-        typeClass=EncryptedStringType.class,
-        parameters= {
-                @Parameter(name="encryptorRegisteredName", value="myHibernateStringEncryptor")
-        }
-)
 public class User extends Person{
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -33,7 +21,6 @@ public class User extends Person{
     @Column(nullable = false, unique = true)
     private String userName;
     @Column(nullable = false)
-    @Type(type="encryptedString")
     private String password;
     @ManyToOne
     private Institution institution;

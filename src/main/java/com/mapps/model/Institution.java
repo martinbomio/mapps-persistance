@@ -1,11 +1,11 @@
 package com.mapps.model;
 
-import org.hibernate.annotations.Parameter;
-import org.hibernate.annotations.TypeDef;
-import org.jasypt.hibernate.type.EncryptedStringType;
-
-import javax.persistence.*;
-import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * Representation of the Institution of the system

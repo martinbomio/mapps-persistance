@@ -1,10 +1,18 @@
 package com.mapps.model;
 
-import javax.persistence.*;
-import java.util.ArrayList;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  * Representation of a training in the system
@@ -27,16 +35,12 @@ public class Training {
     private long longOrigin;
     private int minBPM;
     private int maxBPM;
-    @Column(nullable=false)
     @ManyToMany
     private Map<Athlete,Device> mapAthleteDevice;
-    @Column(nullable=false)
     @OneToMany
     private List<Report> reports;
-    @Column(nullable=false)
     @ManyToOne
     private Sport sport;
-    @Column(nullable=false)
     @ManyToMany
     private Map <User,Permission> mapUserPermission;
 
@@ -45,7 +49,7 @@ public class Training {
     }
 
     public Training(String name, Date date, int participants, long latOrigin, long longOrigin, int minBPM,
-                    int maxBPM, Map<Athlete, Device> mapAthleteDevice, ArrayList<Report> reports, Sport sport,
+                    int maxBPM, Map<Athlete, Device> mapAthleteDevice, List<Report> reports, Sport sport,
                     Map<User, Permission> mapUserPermission) {
         this.name = name;
         this.date = date;
