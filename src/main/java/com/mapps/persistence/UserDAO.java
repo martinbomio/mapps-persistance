@@ -1,4 +1,4 @@
-package com.mapps.persistance;
+package com.mapps.persistence;
 
 import com.mapps.model.User;
 
@@ -11,5 +11,5 @@ public interface UserDAO {
      * @param username
      * @return
      */
-    User getUserbyUsername(String username);
+    User getUserByUsername(String username);
 }

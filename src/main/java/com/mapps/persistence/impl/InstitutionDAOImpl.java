@@ -1,20 +1,22 @@
-package com.mapps.persistance.impl;
+package com.mapps.persistence.impl;
 
 import com.mapps.exceptions.InstitutionNotFoundException;
 import com.mapps.model.Institution;
-import com.mapps.persistance.InstitutionDAO;
+import com.mapps.persistence.InstitutionDAO;
 import org.apache.log4j.Logger;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
  *
  */
+@Stateless(name = "InstitutionDao")
 public class InstitutionDAOImpl implements InstitutionDAO {
 
     Logger logger = Logger.getLogger(InstitutionDAOImpl.class);
-    @PersistenceContext(unitName="mapps-persistance")
+    @PersistenceContext(unitName="mapps-persistence")
     EntityManager entityManager;
 
     @Override

@@ -1,4 +1,4 @@
-package com.mapps.persistance;
+package com.mapps.persistence;
 
 import com.mapps.exceptions.InstitutionNotFoundException;
 import com.mapps.model.Institution;

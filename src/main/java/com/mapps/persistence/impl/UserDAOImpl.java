@@ -1,4 +1,4 @@
-package com.mapps.persistance.impl;
+package com.mapps.persistence.impl;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -7,7 +7,7 @@ import javax.persistence.PersistenceContext;
 import org.apache.log4j.Logger;
 
 import com.mapps.model.User;
-import com.mapps.persistance.UserDAO;
+import com.mapps.persistence.UserDAO;
 
 /**
  *
@@ -15,11 +15,11 @@ import com.mapps.persistance.UserDAO;
 @Stateless(name = "UserDAO")
 public class UserDAOImpl implements UserDAO {
     Logger logger = Logger.getLogger(UserDAOImpl.class);
-    @PersistenceContext(unitName="mapps-persistance")
+    @PersistenceContext(unitName="mapps-persistence")
     EntityManager entityManager;
 
     @Override
-    public User getUserbyUsername(String username) {
+    public User getUserByUsername(String username) {
         return null;
     }
 }

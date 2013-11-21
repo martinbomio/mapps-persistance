@@ -1,19 +1,21 @@
-package com.mapps.persistance.impl;
+package com.mapps.persistence.impl;
 
 import com.mapps.exceptions.PermissionNotFoundException;
 import com.mapps.model.Permission;
-import com.mapps.persistance.PermissionDAO;
+import com.mapps.persistence.PermissionDAO;
 import org.apache.log4j.Logger;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
  *
  */
+@Stateless(name = "PermissionDao")
 public class PermissionDAOImpl implements PermissionDAO {
     Logger logger = Logger.getLogger(PermissionDAOImpl.class);
-    @PersistenceContext(unitName="mapps-persistance")
+    @PersistenceContext(unitName="mapps-persistence")
     EntityManager entityManager;
 
     @Override
