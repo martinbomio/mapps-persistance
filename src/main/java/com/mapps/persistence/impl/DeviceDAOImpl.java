@@ -30,7 +30,9 @@ public class DeviceDAOImpl implements DeviceDAO{
     public void deleteDevice(Long deviceId) throws DeviceNotFoundException {
         logger.info("A Device was removed from the database");
         Device deviceAux=getDeviceById(deviceId);
-        entityManager.remove(deviceAux);
+        if(deviceAux!=null){
+            entityManager.remove(deviceAux);
+        }
     }
 
     @Override

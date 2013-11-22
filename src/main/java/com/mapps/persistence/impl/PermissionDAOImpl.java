@@ -27,10 +27,11 @@ public class PermissionDAOImpl implements PermissionDAO {
     @Override
     public void deletePermission(Long permissionId) throws PermissionNotFoundException {
         Permission permAux=getPermissionById(permissionId);
-        entityManager.remove(permAux);
-        logger.info("A Permission was removed from the database");
+        if(permAux!=null){
+            entityManager.remove(permAux);
+            logger.info("A Permission was removed from the database");
+        }
     }
-
     @Override
     public void updatePermission(Permission permission) throws PermissionNotFoundException {
         Permission permAux=getPermissionById(permission.getId());

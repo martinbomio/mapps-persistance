@@ -34,8 +34,10 @@ public class InstitutionDAOImpl implements InstitutionDAO {
     @Override
     public void deleteInstitution(Long institutionId) throws InstitutionNotFoundException {
         Institution institution=getInstitutionById(institutionId);
-        entityManager.remove(institution);
-        logger.info("A Institution was removed from the database");
+        if(institution!=null){
+            entityManager.remove(institution);
+            logger.info("A Institution was removed from the database");
+        }
     }
 
     @Override

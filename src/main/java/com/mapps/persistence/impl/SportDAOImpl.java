@@ -29,7 +29,9 @@ public class SportDAOImpl implements SportDAO {
     public void deleteSport(Long sportId) throws SportNotFoundException {
         logger.info("A Sport was deleted from the database");
         Sport sportAux =getSportById(sportId);
-        entityManager.remove(sportAux);
+        if(sportAux!=null){
+            entityManager.remove(sportAux);
+        }
     }
 
     @Override

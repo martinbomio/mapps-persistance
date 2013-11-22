@@ -10,7 +10,7 @@ public interface DeviceDAO {
 
     /**
      * This method adds a Device to the database.
-     * @param device - The Permission to add to the database
+     * @param device - The Device to add to the database
      */
     void addDevice(Device device);
 
