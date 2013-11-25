@@ -26,6 +26,7 @@ public class User extends Person{
     private Institution institution;
     @ManyToOne
     private Role role;
+    private boolean enabled;
 
     public User() {
     }
@@ -41,6 +42,7 @@ public class User extends Person{
         this.password = password;
         this.institution = institution;
         this.role = role;
+        this.enabled = true;
     }
 
     public Long getId() {
@@ -81,5 +83,13 @@ public class User extends Person{
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }

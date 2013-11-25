@@ -16,17 +16,21 @@ public class Institution {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     Long id;
-    @Column(nullable=false)
+    @Column(nullable=false, unique = true)
     private String name;
     private String description;
+    @Column(nullable=false)
+    private String country;
+    private boolean enabled;
 
     public Institution(){
 
     }
-    public Institution(String name, String description){
+    public Institution(String name, String description, String country){
         this.name = name;
         this.description = description;
-
+        this.country = country;
+        this.enabled = true;
     }
     public Long getId() {
         return id;
@@ -48,4 +52,19 @@ public class Institution {
         this.description=description;
     }
 
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 }

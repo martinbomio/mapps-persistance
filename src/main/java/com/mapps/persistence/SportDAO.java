@@ -1,5 +1,7 @@
 package com.mapps.persistence;
 
+import java.util.List;
+
 import com.mapps.exceptions.SportNotFoundException;
 import com.mapps.model.Sport;
 
@@ -35,4 +37,18 @@ public interface SportDAO {
      * @throws SportNotFoundException - If the Sport is not in the database
      */
     Sport getSportById (Long sportId) throws SportNotFoundException;
+
+    /**
+     * Searches a sport for its name.
+     * @param name name of the sport.
+     * @return sport with name.
+     * @throws SportNotFoundException thrown if the there is no sport with that name.
+     */
+    Sport getSportByName(String name) throws SportNotFoundException;
+
+    /**
+     * Returns all sport on the database
+     * @return list of sports.
+     */
+    List<Sport> getAllSports();
 }

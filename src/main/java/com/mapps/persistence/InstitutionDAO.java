@@ -1,5 +1,7 @@
 package com.mapps.persistence;
 
+import java.util.List;
+
 import com.mapps.exceptions.InstitutionNotFoundException;
 import com.mapps.model.Institution;
 
@@ -35,4 +37,18 @@ public interface InstitutionDAO {
      * @throws InstitutionNotFoundException - If the Institution is not in the database
      */
     Institution getInstitutionById (Long institutionId) throws InstitutionNotFoundException;
+
+    /**
+     * Returns an institution by its name
+     * @param name name of the institution
+     * @return the institution with the name passed
+     * @throws InstitutionNotFoundException thrown when no istitution has that name
+     */
+    Institution getByName(String name) throws InstitutionNotFoundException;
+
+    /**
+     * Returns all the institutions in the database.
+     * @return list of institutions.
+     */
+    List<Institution> getAll();
 }

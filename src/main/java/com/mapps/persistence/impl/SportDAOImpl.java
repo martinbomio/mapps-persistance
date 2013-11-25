@@ -1,13 +1,16 @@
 package com.mapps.persistence.impl;
 
+import java.util.List;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
+import org.apache.log4j.Logger;
+
 import com.mapps.exceptions.SportNotFoundException;
 import com.mapps.model.Sport;
 import com.mapps.persistence.SportDAO;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
-import javax.ejb.Stateless;
-import org.apache.log4j.Logger;
 
 /**
  *
@@ -55,5 +58,22 @@ public class SportDAOImpl implements SportDAO {
             logger.info("The sport is not in the database");
             throw new SportNotFoundException();
         }
+    }
+
+    @Override
+    public Sport getSportByName(String name) throws SportNotFoundException {
+        Query query = entityManager.createQuery("from Sports as s where s.name = :name").setParameter("name", name);
+        List<Sport> sports = query.getResultList();
+        if(sports.size() != 1){
+            logger.info("The sport is not in the database");
+            throw new SportNotFoundException();
+        }
+        return sports.get(0);
+    }
+
+    @Override
+    public List<Sport> getAllSports() {
+        Query query = entityManager.createQuery("from Sports");
+        return query.getResultList();
     }
 }

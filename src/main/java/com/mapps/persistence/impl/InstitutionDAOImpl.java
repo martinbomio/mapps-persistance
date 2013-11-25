@@ -1,19 +1,16 @@
 package com.mapps.persistence.impl;
 
+import java.util.List;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.apache.log4j.Logger;
 
 import com.mapps.exceptions.InstitutionNotFoundException;
 import com.mapps.model.Institution;
 import com.mapps.persistence.InstitutionDAO;
-import com.mapps.persistence.InstitutionDAO;
-import org.apache.log4j.Logger;
-
-import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 /**
  *
@@ -59,5 +56,23 @@ public class InstitutionDAOImpl implements InstitutionDAO {
             logger.error("The Institution is not in the database");
             throw new InstitutionNotFoundException();
         }
+    }
+
+    @Override
+    public Institution getByName(String name) throws InstitutionNotFoundException {
+        Query query = entityManager.createQuery("from Institutions as i where i.name = :name")
+                .setParameter("name", name);
+        List<Institution> institutions = query.getResultList();
+        if (institutions.size() != 1){
+            logger.error("The Institution is not in the database");
+            throw new InstitutionNotFoundException();
+        }
+        return institutions.get(0);
+    }
+
+    @Override
+    public List<Institution> getAll() {
+        Query query = entityManager.createQuery("from Institutions");
+        return query.getResultList();
     }
 }

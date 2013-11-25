@@ -35,6 +35,7 @@ public class Training {
     private long longOrigin;
     private int minBPM;
     private int maxBPM;
+    private boolean started;
     @ManyToMany
     private Map<Athlete,Device> mapAthleteDevice;
     @OneToMany
@@ -50,7 +51,7 @@ public class Training {
 
     public Training(String name, Date date, int participants, long latOrigin, long longOrigin, int minBPM,
                     int maxBPM, Map<Athlete, Device> mapAthleteDevice, List<Report> reports, Sport sport,
-                    Map<User, Permission> mapUserPermission) {
+                    Map<User, Permission> mapUserPermission, boolean started) {
         this.name = name;
         this.date = date;
         this.participants = participants;
@@ -62,6 +63,7 @@ public class Training {
         this.reports = reports;
         this.sport = sport;
         this.mapUserPermission = mapUserPermission;
+        this.started = started;
     }
 
     public Long getId() {
@@ -158,5 +160,13 @@ public class Training {
 
     public void setMapUserPermission(Map<User, Permission> mapUserPermission) {
         this.mapUserPermission = mapUserPermission;
+    }
+
+    public boolean isStarted() {
+        return started;
+    }
+
+    public void setStarted(boolean started) {
+        this.started = started;
     }
 }

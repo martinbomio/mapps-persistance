@@ -22,6 +22,7 @@ public class Device {
     @Column(nullable=false)
     private long dirLow;
     private int panId;
+    private boolean available;
 
     public Device(){
 
@@ -30,6 +31,7 @@ public class Device {
         this.dirHigh=dirHigh;
         this.dirLow=dirLow;
         this.panId=panId;
+        this.available = true;
     }
     public Long getId() {
         return id;
@@ -57,4 +59,11 @@ public class Device {
         this.panId=panId;
     }
 
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
+    }
 }

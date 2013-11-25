@@ -1,12 +1,14 @@
 package com.mapps.persistence.impl;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
-import com.mapps.exceptions.UserNotFoundException;
 import org.apache.log4j.Logger;
 
+import com.mapps.exceptions.UserNotFoundException;
 import com.mapps.model.User;
 import com.mapps.persistence.UserDAO;
 
@@ -54,4 +56,17 @@ public class UserDAOImpl implements UserDAO {
             throw new UserNotFoundException();
         }
     }
+
+    @Override
+    public User getUserByUsername(String username) throws UserNotFoundException {
+        Query query =entityManager.createQuery("from Users as u where u.userName = :name ");
+        query.setParameter("name", username);
+        List<User> results = query.getResultList();
+        if (results.size() != 1){
+            throw new UserNotFoundException();
+        }
+        return results.get(0);
+    }
+
+
 }

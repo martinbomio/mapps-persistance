@@ -34,4 +34,12 @@ public interface UserDAO {
      * @throws UserNotFoundException - If the User is not in the database
      */
     User getUserById (Long userId) throws UserNotFoundException;
+
+    /**
+     * Method that searches a user by his name in the database
+     * @param username name of the user
+     * @return user with username
+     * @throws UserNotFoundException If the user is not in the database
+     */
+    User getUserByUsername(String username) throws UserNotFoundException;
 }

@@ -1,13 +1,14 @@
 package com.mapps.persistence.impl;
 
-import com.mapps.exceptions.AthleteNotFoundException;
-import com.mapps.model.Athlete;
-import com.mapps.persistence.AthleteDAO;
-import org.apache.log4j.Logger;
-
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import org.apache.log4j.Logger;
+
+import com.mapps.exceptions.AthleteNotFoundException;
+import com.mapps.model.Athlete;
+import com.mapps.persistence.AthleteDAO;
 
 /**
  * Created with IntelliJ IDEA.
