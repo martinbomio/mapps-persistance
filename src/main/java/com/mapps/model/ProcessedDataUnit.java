@@ -11,7 +11,7 @@ import javax.persistence.Table;
  * Representation of a processed data unit in the system
  */
 @Entity
-@Table(name="ProcessedDtaUnits")
+@Table(name="ProcessedDataUnits")
 public class ProcessedDataUnit {
 
     @Id
