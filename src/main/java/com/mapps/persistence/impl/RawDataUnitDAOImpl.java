@@ -20,7 +20,7 @@ import javax.persistence.PersistenceContext;
 public class RawDataUnitDAOImpl implements RawDataUnitDAO {
 
     Logger logger= Logger.getLogger(RawDataUnitDAOImpl.class);
-    @PersistenceContext(unitName = "mapps-percistence")
+    @PersistenceContext(unitName = "mapps-persistence")
     EntityManager entityManager;
 
     @Override

@@ -20,7 +20,7 @@ import javax.persistence.PersistenceContext;
 public class ReportDAOImpl implements ReportDAO {
 
     Logger logger= Logger.getLogger(ReportDAOImpl.class);
-    @PersistenceContext(unitName = "mapps-percistence")
+    @PersistenceContext(unitName = "mapps-persistence")
     EntityManager entityManager;
 
     @Override

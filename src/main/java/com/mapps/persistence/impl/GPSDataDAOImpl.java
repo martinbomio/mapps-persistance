@@ -20,7 +20,7 @@ import javax.persistence.PersistenceContext;
 public class GPSDataDAOImpl implements GPSDataDAO{
 
     Logger logger= Logger.getLogger(GPSDataDAOImpl.class);
-    @PersistenceContext(unitName = "mapps-percistence")
+    @PersistenceContext(unitName = "mapps-persistence")
     EntityManager entityManager;
 
     @Override

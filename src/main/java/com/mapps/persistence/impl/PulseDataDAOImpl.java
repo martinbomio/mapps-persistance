@@ -19,7 +19,7 @@ import javax.persistence.PersistenceContext;
 @Stateless(name="PulseDataDAO")
 public class PulseDataDAOImpl implements PulseDataDAO {
     Logger logger= Logger.getLogger(PulseDataDAOImpl.class);
-    @PersistenceContext(unitName = "mapps-percistence")
+    @PersistenceContext(unitName = "mapps-persistence")
     EntityManager entityManager;
 
     @Override

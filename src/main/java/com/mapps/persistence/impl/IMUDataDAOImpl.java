@@ -20,7 +20,7 @@ import javax.persistence.PersistenceContext;
 public class IMUDataDAOImpl implements IMUDataDAO {
 
     Logger logger= Logger.getLogger(IMUDataDAOImpl.class);
-    @PersistenceContext(unitName = "mapps-percistence")
+    @PersistenceContext(unitName = "mapps-persistence")
     EntityManager entityManager;
 
     @Override

@@ -20,7 +20,7 @@ import javax.persistence.PersistenceContext;
 public class AthleteDAOImpl implements AthleteDAO{
 
     Logger logger= Logger.getLogger(AthleteDAOImpl.class);
-    @PersistenceContext(unitName = "mapps-percistence")
+    @PersistenceContext(unitName = "mapps-persistence")
     EntityManager entityManager;
 
     @Override
