@@ -35,4 +35,14 @@ public interface TrainingDAO {
      * @throws TrainingNotFoundException - If the Training is not in the database
      */
     Training getTrainingById (Long trainingId) throws TrainingNotFoundException;
+
+
+
+    /**
+     * This method gets a Training from the database
+     * @param trainingDate - the Training identification date to find the Training in the database
+     * @return - The Training in the database
+     * @throws TrainingNotFoundException - If the Training is not in the database
+     */
+    Training getTrainingByDate (Long trainingDate) throws TrainingNotFoundException;
 }

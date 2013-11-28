@@ -5,9 +5,13 @@ import com.mapps.model.Training;
 import com.mapps.persistence.TrainingDAO;
 import org.apache.log4j.Logger;
 
+
 import javax.ejb.Stateless;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -56,5 +60,18 @@ public class TrainingDAOImpl implements TrainingDAO {
             logger.error("The Training is not in the database");
             throw new TrainingNotFoundException();
         }
+    }
+
+    @Override
+    public Training getTrainingByDate(Long trainingDate) throws TrainingNotFoundException {
+        Query query=entityManager.createQuery("from Trainings as t where t.date=:date");
+        query.setParameter("date",trainingDate);
+        List<Training> results=query.getResultList();
+        if(results.size()!=1) {
+            throw new TrainingNotFoundException();
+        }
+            return results.get(0);
+
+
     }
 }
