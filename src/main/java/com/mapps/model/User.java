@@ -32,7 +32,7 @@ public class User extends Person{
     public User() {
     }
 
-    public User(String name, String lastName, Date birth, String gender,
+    public User(String name, String lastName, Date birth, Gender gender,
                 String email, String userName, String password, Institution institution, Role role){
         this.name = name;
         this.lastName = lastName;

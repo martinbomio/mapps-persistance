@@ -26,7 +26,7 @@ public class Athlete extends Person{
     public Athlete() {
     }
 
-    public Athlete(String name, String lastName, Date birth, String gender,
+    public Athlete(String name, String lastName, Date birth, Gender gender,
                    String email,double weight, double height) {
         this.name = name;
         this.lastName = lastName;
