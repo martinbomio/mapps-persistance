@@ -42,7 +42,7 @@ public class GPSDataDAOImpl implements GPSDataDAO{
     public void updateGPSData(GPSData gPSData) throws GPSDataNotFoundException {
         GPSData gPSDataAux=getGPSDataById(gPSData.getId());
         if(gPSDataAux!=null){
-            entityManager.merge(gPSDataAux);
+            entityManager.merge(gPSData);
             logger.info("A GPSData was updated in the database");
         }
     }

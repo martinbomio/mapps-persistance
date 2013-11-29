@@ -11,11 +11,7 @@ import com.mapps.model.Athlete;
 import com.mapps.persistence.AthleteDAO;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Usuario1
- * Date: 22/11/13
- * Time: 04:16 PM
- * To change this template use File | Settings | File Templates.
+ *
  */
 @Stateless(name="AthleteDAO")
 public class AthleteDAOImpl implements AthleteDAO{
@@ -43,7 +39,7 @@ public class AthleteDAOImpl implements AthleteDAO{
     public void updateAthlete(Athlete athlete) throws AthleteNotFoundException {
         Athlete athAux=getAthleteById(athlete.getId());
         if(athAux!=null){
-            entityManager.merge(athAux);
+            entityManager.merge(athlete);
             logger.info("A Athlete was updated in the database");
         }
     }

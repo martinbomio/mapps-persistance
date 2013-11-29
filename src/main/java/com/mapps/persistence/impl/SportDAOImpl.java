@@ -40,9 +40,9 @@ public class SportDAOImpl implements SportDAO {
     @Override
     public void updateSport(Sport sport) throws SportNotFoundException {
 
-        Sport sportAux=getSportById(sport.getId());
+        Sport sportAux=getSportByName(sport.getName());
         if(sportAux!=null){
-            entityManager.merge(sportAux);
+            entityManager.merge(sport);
             logger.info("A Sport has been updated");
         }
     }

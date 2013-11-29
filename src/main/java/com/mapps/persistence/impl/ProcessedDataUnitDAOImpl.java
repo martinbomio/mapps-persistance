@@ -42,7 +42,7 @@ public class ProcessedDataUnitDAOImpl implements ProcessedDataUnitDAO {
     public void updateProcessedDataUnit(ProcessedDataUnit processedDataUnit) throws ProcessedDataUnitNotFoundException {
         ProcessedDataUnit processedDataUnitAux=getProcessedDataUnitById(processedDataUnit.getId());
         if(processedDataUnitAux!=null){
-            entityManager.merge(processedDataUnitAux);
+            entityManager.merge(processedDataUnit);
             logger.info("A ProcessedDataUnit was updated in the database");
         }
     }

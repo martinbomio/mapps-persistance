@@ -43,7 +43,7 @@ public class RawDataUnitDAOImpl implements RawDataUnitDAO {
     public void updateRawDataUnit(RawDataUnit rawDataUnit) throws RawDataUnitNotFoundException {
         RawDataUnit rawDataUnitAux=getRawDataUnitById(rawDataUnit.getId());
         if(rawDataUnitAux!=null){
-            entityManager.merge(rawDataUnitAux);
+            entityManager.merge(rawDataUnit);
             logger.info("A rawDataUnit was updated in the database");
         }
     }

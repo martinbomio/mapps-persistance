@@ -40,9 +40,9 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void updateUser(User user) throws UserNotFoundException {
-        User userAux=getUserById(user.getId());
+        User userAux=getUserByUsername(user.getName());
         if(userAux!=null){
-            entityManager.merge(userAux);
+            entityManager.merge(user);
             logger.info("A user was updated in the database");
         }
     }

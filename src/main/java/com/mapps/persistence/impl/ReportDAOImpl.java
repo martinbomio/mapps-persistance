@@ -42,7 +42,7 @@ public class ReportDAOImpl implements ReportDAO {
     public void updateReport(Report report) throws ReportNotFoundException {
         Report repAux=getReportById(report.getId());
         if(repAux!=null){
-            entityManager.merge(repAux);
+            entityManager.merge(report);
             logger.info("A Report was updated in the database");
         }
     }

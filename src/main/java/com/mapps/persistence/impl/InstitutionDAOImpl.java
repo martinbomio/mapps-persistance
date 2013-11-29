@@ -39,7 +39,7 @@ public class InstitutionDAOImpl implements InstitutionDAO {
 
     @Override
     public void updateInstitution(Institution institution) throws InstitutionNotFoundException {
-        Institution instAux=getInstitutionById(institution.getId());
+        Institution instAux=getByName(institution.getName());
         if(instAux!=null){
             entityManager.merge(institution);
             logger.info("A Institution was updated in the database");

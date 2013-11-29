@@ -41,7 +41,7 @@ public class PulseDataDAOImpl implements PulseDataDAO {
     public void updatePulseData(PulseData pulseData) throws PulseDataNotFoundException {
         PulseData pulseDataAux=getPulseDataById(pulseData.getId());
         if(pulseDataAux!=null){
-            entityManager.merge(pulseDataAux);
+            entityManager.merge(pulseData);
             logger.info("A PulseData was updated in the database");
         }
     }

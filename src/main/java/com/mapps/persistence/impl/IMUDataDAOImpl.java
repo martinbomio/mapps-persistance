@@ -42,7 +42,7 @@ public class IMUDataDAOImpl implements IMUDataDAO {
     public void updateIMUData(IMUData iMUData) throws IMUDataNotFoundException {
         IMUData iMUDataAux=getIMUDataById(iMUData.getId());
         if(iMUDataAux!=null){
-            entityManager.merge(iMUDataAux);
+            entityManager.merge(iMUData);
             logger.info("A IMUData was updated in the database");
         }
     }

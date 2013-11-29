@@ -39,7 +39,7 @@ public class DeviceDAOImpl implements DeviceDAO{
     public void updateDevice(Device device) throws DeviceNotFoundException {
        Device deviceAux=getDeviceById(device.getId());
        if(deviceAux!=null){
-           entityManager.merge(deviceAux);
+           entityManager.merge(device);
            logger.info("A Device was updated in the database");
        }
     }
