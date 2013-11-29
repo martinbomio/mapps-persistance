@@ -97,4 +97,20 @@ public class User extends Person{
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
+
+    public Institution getInstitution() {
+        return institution;
+    }
+
+    public void setInstitution(Institution institution) {
+        this.institution = institution;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 }
