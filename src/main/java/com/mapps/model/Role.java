@@ -1,29 +1,45 @@
 package com.mapps.model;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
-import javax.persistence.Table;
+
+import com.mapps.exceptions.RoleNotFoundException;
 
 /**
  * Representation of the Role of a User in the system.
  */
-@Entity
-@Table(name = "Roles")
-public class Role {
-    private RoleType role;
+public enum Role {
+    ADMINISTRATOR(1),
+    TRAINER(2),
+    USER(3);
 
-    public enum RoleType {
-        ADMINISTRATOR, TRAINER, USER;
-    };
-    @Id
-    @Enumerated(EnumType.ORDINAL)
-    public RoleType getRole(){
-        return role;
+    private int value;
+
+    Role(int value) {
+        this.value = value;
     }
 
-    public void setRole(RoleType role){
-        this.role = role;
+    public int toInt() {
+        return value;
+    }
+
+    public  static Role fromInt(int value) throws RoleNotFoundException {
+        switch(value) {
+            case 1: return ADMINISTRATOR;
+            case 2: return TRAINER;
+            case 3: return USER;
+            default:
+                throw new RoleNotFoundException();
+        }
+    }
+
+    public String toString() {
+        switch(this) {
+            case ADMINISTRATOR:
+                return "Administrator";
+            case TRAINER:
+                return "Trainer";
+            case USER:
+                return "User";
+        }
+        return null;
     }
 }

@@ -1,6 +1,7 @@
 package com.mapps.model;
 
 import java.util.Date;
+import javax.persistence.Enumerated;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -16,7 +17,8 @@ public abstract class Person{
     protected String lastName;
     @Temporal(TemporalType.DATE)
     protected Date birth;
-    protected String gender;
+    @Enumerated
+    protected Gender gender;
     @Email
     protected String email;
 
@@ -44,11 +46,11 @@ public abstract class Person{
         this.birth = birth;
     }
 
-    public String getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 

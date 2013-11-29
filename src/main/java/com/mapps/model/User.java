@@ -3,6 +3,7 @@ package com.mapps.model;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,7 +25,7 @@ public class User extends Person{
     private String password;
     @ManyToOne
     private Institution institution;
-    @ManyToOne
+    @Enumerated
     private Role role;
     private boolean enabled;
 
