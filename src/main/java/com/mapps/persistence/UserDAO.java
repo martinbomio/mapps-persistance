@@ -3,8 +3,10 @@ package com.mapps.persistence;
 import com.mapps.exceptions.UserNotFoundException;
 import com.mapps.model.User;
 
+import java.util.List;
+
 /**
- *
+ * UserDAO interface
  */
 public interface UserDAO {
     /**
@@ -42,4 +44,11 @@ public interface UserDAO {
      * @throws UserNotFoundException If the user is not in the database
      */
     User getUserByUsername(String username) throws UserNotFoundException;
+
+    /**
+     * Method that gets all the users
+     * @return all the users
+     * @throws UserNotFoundException If there are no users in the database
+     */
+    List<User> getAllUsers() throws UserNotFoundException;
 }

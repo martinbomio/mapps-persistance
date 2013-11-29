@@ -3,12 +3,16 @@ package com.mapps.persistence.impl;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
+import com.mapps.model.Institution;
 import org.apache.log4j.Logger;
 
 import com.mapps.exceptions.AthleteNotFoundException;
 import com.mapps.model.Athlete;
 import com.mapps.persistence.AthleteDAO;
+
+import java.util.List;
 
 /**
  *
@@ -37,7 +41,7 @@ public class AthleteDAOImpl implements AthleteDAO{
 
     @Override
     public void updateAthlete(Athlete athlete) throws AthleteNotFoundException {
-        Athlete athAux=getAthleteById(athlete.getId());
+        Athlete athAux=getAthleteByName(athlete.getName());
         if(athAux!=null){
             entityManager.merge(athlete);
             logger.info("A Athlete was updated in the database");
@@ -53,5 +57,22 @@ public class AthleteDAOImpl implements AthleteDAO{
             throw new AthleteNotFoundException();
         }
     }
+
+    @Override
+    public Athlete getAthleteByName(String name) throws AthleteNotFoundException {
+       Query query=entityManager.createQuery("from Athletes as a where a.name = :name");
+       query.setParameter("name",name);
+        List<Athlete> results = query.getResultList();
+        if (results.size() != 1){
+            throw new AthleteNotFoundException();
+        }
+        return results.get(0);
+
     }
+
+    @Override
+    public Athlete getAthleteByNameAndInstitution(String name, Institution institution) throws AthleteNotFoundException {
+        return null;
+    }
+}
 

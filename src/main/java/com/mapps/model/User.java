@@ -46,6 +46,26 @@ public class User extends Person{
         this.enabled = true;
     }
 
+    @Override
+    public boolean equals(Object obj){
+        boolean aux=false;
+        if(obj==this){
+            aux=true;
+            return aux;
+        }
+        if(obj==null || obj.getClass()!=this.getClass()){
+            return aux;
+        }
+        User other=  (User)obj;
+        if(name.equals(other.name)&&lastName.equals(other.lastName)&&gender.equals(other.gender)&&
+                email.equals(other.email)&&birth.equals(other.birth)&&userName.equals(other.userName)&&
+                password.equals(other.password)&&institution.equals(other.institution)){
+            aux=true;
+            return aux;
+        }
+        return aux;
+    }
+
     public Long getId() {
         return id;
     }
@@ -68,22 +88,6 @@ public class User extends Person{
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Institution getInstitution() {
-        return institution;
-    }
-
-    public void setInstitution(Institution institution) {
-        this.institution = institution;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
     }
 
     public boolean isEnabled() {

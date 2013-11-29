@@ -35,4 +35,11 @@ public interface DeviceDAO {
      * @throws DeviceNotFoundException - If the Sport is not in the database
      */
     Device getDeviceById (Long deviceId) throws DeviceNotFoundException;
+    /**
+     * This method gets a Device from the database
+     * @param dirLow - the Device identification id to find the Device in the database
+     * @return - The Device in the database
+     * @throws DeviceNotFoundException - If the Sport is not in the database
+     */
+    Device getDeviceByDir (long dirLow) throws DeviceNotFoundException;
 }

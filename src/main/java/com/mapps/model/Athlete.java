@@ -22,6 +22,18 @@ public class Athlete extends Person{
     private double weight;
     @Column(nullable = false)
     private double hight;
+    private boolean enabled;
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+
+
 
     public Athlete() {
     }
@@ -35,6 +47,7 @@ public class Athlete extends Person{
         this.email = email;
         this.weight = weight;
         this.hight = height;
+        this.enabled=true;
     }
 
     public Long getId() {

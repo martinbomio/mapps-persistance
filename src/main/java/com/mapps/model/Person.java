@@ -2,6 +2,7 @@ package com.mapps.model;
 
 import java.util.Date;
 import javax.persistence.Enumerated;
+import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,6 +22,17 @@ public abstract class Person{
     protected Gender gender;
     @Email
     protected String email;
+
+    public Institution getInstitution() {
+        return institution;
+    }
+
+    public void setInstitution(Institution institution) {
+        this.institution = institution;
+    }
+
+    @ManyToOne
+    protected Institution institution;
 
     public String getName() {
         return name;

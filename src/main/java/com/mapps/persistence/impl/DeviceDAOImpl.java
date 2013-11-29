@@ -53,4 +53,9 @@ public class DeviceDAOImpl implements DeviceDAO{
            throw new DeviceNotFoundException();
        }
     }
+
+    @Override
+    public Device getDeviceByDir(long dirLow) throws DeviceNotFoundException {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
 }

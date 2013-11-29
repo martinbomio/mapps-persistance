@@ -32,9 +32,30 @@ public class Institution {
         this.country = country;
         this.enabled = true;
     }
+
+    @Override
+    public boolean equals(Object obj){
+        boolean aux=false;
+        if(obj==this){
+            aux=true;
+            return aux;
+        }
+        if(obj==null || obj.getClass()!=this.getClass()){
+            return aux;
+        }
+        Institution other=  (Institution)obj;
+        if(name.equals(other.name)&&description.equals(other.description)&&country.equals(other.country)){
+            aux=true;
+            return aux;
+        }
+        return aux;
+    }
+
+
     public Long getId() {
         return id;
     }
+
 
     public void setId(Long id) {
         this.id = id;
