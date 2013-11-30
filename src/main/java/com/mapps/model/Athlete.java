@@ -21,7 +21,7 @@ public class Athlete extends Person{
     @Column(nullable = false)
     private double weight;
     @Column(nullable = false)
-    private double hight;
+    private double height;
     private boolean enabled;
 
     public boolean isEnabled() {
@@ -39,16 +39,35 @@ public class Athlete extends Person{
     }
 
     public Athlete(String name, String lastName, Date birth, Gender gender,
-                   String email,double weight, double height,Long idDocument) {
+                   String email,double weight, double height,long idDocument) {
         this.name = name;
         this.lastName = lastName;
         this.birth = birth;
         this.gender = gender;
         this.email = email;
         this.weight = weight;
-        this.hight = height;
+        this.height = height;
         this.idDocument = idDocument;
         this.enabled=true;
+    }
+    @Override
+    public boolean equals(Object obj){
+        boolean aux=false;
+        if(obj==this){
+            aux=true;
+            return aux;
+        }
+        if(obj==null || obj.getClass()!=this.getClass()){
+            return aux;
+        }
+        Athlete other=  (Athlete)obj;
+        if(name.equals(other.name)&&lastName.equals(other.lastName)&&gender.equals(other.gender)&&
+                email.equals(other.email)&&birth.equals(other.birth)&&(weight==other.weight)&&
+                (height==other.height)&&idDocument==other.idDocument){
+            aux=true;
+            return aux;
+        }
+        return aux;
     }
 
     public Long getId() {
@@ -67,11 +86,11 @@ public class Athlete extends Person{
         this.weight = weight;
     }
 
-    public double getHight() {
-        return hight;
+    public double getHeight() {
+        return height;
     }
 
-    public void setHight(double hight) {
-        this.hight = hight;
+    public void setHeight(double height) {
+        this.height = height;
     }
 }

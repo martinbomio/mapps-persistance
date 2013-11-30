@@ -22,16 +22,19 @@ public abstract class Person{
     protected Gender gender;
     @Email
     protected String email;
+    protected long idDocument;
+    @ManyToOne
+    protected Institution institution;
 
-    public Long getIdDocument() {
+    public long getIdDocument() {
         return idDocument;
     }
 
-    public void setIdDocument(Long idDocument) {
+    public void setIdDocument(long idDocument) {
         this.idDocument = idDocument;
     }
 
-    protected Long idDocument;
+
 
     public Institution getInstitution() {
         return institution;
@@ -41,8 +44,7 @@ public abstract class Person{
         this.institution = institution;
     }
 
-    @ManyToOne
-    protected Institution institution;
+
 
     public String getName() {
         return name;

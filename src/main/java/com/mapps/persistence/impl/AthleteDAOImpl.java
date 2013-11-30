@@ -92,7 +92,7 @@ public class AthleteDAOImpl implements AthleteDAO{
     }
 
     @Override
-    public Athlete getAthleteByIdDocument(Long idDocument) throws AthleteNotFoundException {
+    public Athlete getAthleteByIdDocument(long idDocument) throws AthleteNotFoundException {
         Query query=entityManager.createQuery("from Athletes as a where a.idDocument=?");
         query.setParameter(0,idDocument);
         List<Athlete> results=query.getResultList();
