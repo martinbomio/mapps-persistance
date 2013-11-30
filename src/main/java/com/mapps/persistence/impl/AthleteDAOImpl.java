@@ -5,6 +5,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import com.mapps.exceptions.AthleteAlreadyExistException;
 import com.mapps.model.Institution;
 import org.apache.log4j.Logger;
 
@@ -25,9 +26,29 @@ public class AthleteDAOImpl implements AthleteDAO{
     EntityManager entityManager;
 
     @Override
-    public void addAthlete(Athlete athlete) {
+    public void addAthlete(Athlete athlete) throws AthleteAlreadyExistException {
+
+        if(isInDatabase(athlete)){
+            throw new AthleteAlreadyExistException();
+        }
         logger.info("a athlete was added to the database");
         entityManager.persist(athlete);
+    }
+
+    @Override
+    public boolean isInDatabase(Athlete athlete)  {
+        boolean aux=true;
+        Query query=entityManager.createQuery("from Athletes as a where a.idDocument=?");
+        query.setParameter(0,athlete.getIdDocument());
+        List<Athlete> results=query.getResultList();
+        if (results.size() == 0){
+                aux=false;
+        }else{
+                aux=true;
+        }
+        return aux;
+
+
     }
 
     @Override
@@ -41,7 +62,7 @@ public class AthleteDAOImpl implements AthleteDAO{
 
     @Override
     public void updateAthlete(Athlete athlete) throws AthleteNotFoundException {
-        Athlete athAux=getAthleteByName(athlete.getName());
+        Athlete athAux=getAthleteById(athlete.getId());
         if(athAux!=null){
             entityManager.merge(athlete);
             logger.info("A Athlete was updated in the database");
@@ -71,8 +92,25 @@ public class AthleteDAOImpl implements AthleteDAO{
     }
 
     @Override
-    public Athlete getAthleteByNameAndInstitution(String name, Institution institution) throws AthleteNotFoundException {
-        return null;
+    public Athlete getAthleteByIdDocument(Long idDocument) throws AthleteNotFoundException {
+        Query query=entityManager.createQuery("from Athletes as a where a.idDocument=?");
+        query.setParameter(0,idDocument);
+        List<Athlete> results=query.getResultList();
+        if (results.size() != 1){
+            throw new AthleteNotFoundException();
+        }
+        return results.get(0);
+
     }
+
+    @Override
+    public List<Athlete> getAllAthletesByInstitution(String institutionName) {
+        Query query=entityManager.createQuery("from Athlete as a INNER JOIN Institution as i WHERE i.name =?");
+        query.setParameter(0,institutionName);
+        List<Athlete> results=query.getResultList();
+        return results;
+    }
+
+
 }
 

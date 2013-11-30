@@ -44,11 +44,11 @@ public interface InstitutionDAO {
      * @return the institution with the name passed
      * @throws InstitutionNotFoundException thrown when no istitution has that name
      */
-    Institution getByName(String name) throws InstitutionNotFoundException;
+    Institution getInstitutionByName(String name) throws InstitutionNotFoundException;
 
     /**
      * Returns all the institutions in the database.
      * @return list of institutions.
      */
-    List<Institution> getAll();
+    List<Institution> getAllInstitutions();
 }

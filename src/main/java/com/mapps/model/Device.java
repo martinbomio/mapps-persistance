@@ -1,12 +1,7 @@
 package com.mapps.model;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
 Representation of the device in the system
@@ -22,12 +17,15 @@ public class Device {
     @Column(nullable=false)
     private long dirLow;
     private int panId;
+    @ManyToOne
+    private Institution institution;
     private boolean available;
 
     public Device(){
 
     }
-    public Device(long diHigh,long dirLow,int panId){
+    public Device(long diHigh, long dirLow, int panId, Institution institution){
+        this.institution = institution;
         this.dirHigh=dirHigh;
         this.dirLow=dirLow;
         this.panId=panId;
@@ -65,5 +63,13 @@ public class Device {
 
     public void setAvailable(boolean available) {
         this.available = available;
+    }
+
+    public Institution getInstitution() {
+        return institution;
+    }
+
+    public void setInstitution(Institution institution) {
+        this.institution = institution;
     }
 }

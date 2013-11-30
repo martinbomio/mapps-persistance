@@ -39,7 +39,7 @@ public class Athlete extends Person{
     }
 
     public Athlete(String name, String lastName, Date birth, Gender gender,
-                   String email,double weight, double height) {
+                   String email,double weight, double height,Long idDocument) {
         this.name = name;
         this.lastName = lastName;
         this.birth = birth;
@@ -47,6 +47,7 @@ public class Athlete extends Person{
         this.email = email;
         this.weight = weight;
         this.hight = height;
+        this.idDocument = idDocument;
         this.enabled=true;
     }
 

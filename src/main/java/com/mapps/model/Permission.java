@@ -1,6 +1,8 @@
 package com.mapps.model;
 
 
+import com.mapps.exceptions.PermissionNotFoundException;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,32 +13,40 @@ import javax.persistence.Table;
 /**
  * Representation of the Permissions of the system
  */
-@Entity
-@Table(name = "Permissions" )
-public class Permission {
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    Long id;
-    @Column(nullable=false)
-    private String name;
 
-    public Permission(){
+public enum Permission {
 
-    }
-    public Permission(String name){
-        this.name=name;
-    }
-    public Long getId() {
-        return id;
+    READ(1),
+    CREATE(2);
+
+
+    private int value;
+
+    Permission(int value) {
+        this.value = value;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public int toInt() {
+        return value;
     }
-    public String getName(){
-        return name;
+
+    public  static Permission fromInt(int value) throws PermissionNotFoundException {
+        switch(value) {
+            case 1: return READ;
+            case 2: return CREATE;
+            default:
+                throw new PermissionNotFoundException();
+        }
     }
-    public void setName(String name){
-        this.name=name;
+
+    public String toString() {
+        switch(this) {
+            case READ:
+                return "Read";
+            case CREATE:
+                return "Create";
+        }
+        return null;
     }
+
 }

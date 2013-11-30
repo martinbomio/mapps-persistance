@@ -69,7 +69,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public List<User> getAllUsers() throws UserNotFoundException {
+    public List<User> getAllUsers() {
          Query query =entityManager.createQuery("from Users");
         List<User> allUsers=query.getResultList();
         return allUsers;

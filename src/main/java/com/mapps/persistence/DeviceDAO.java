@@ -1,5 +1,6 @@
 package com.mapps.persistence;
 
+import com.mapps.exceptions.DeviceAlreadyExistException;
 import com.mapps.exceptions.DeviceNotFoundException;
 import com.mapps.model.Device;
 
@@ -12,7 +13,14 @@ public interface DeviceDAO {
      * This method adds a Device to the database.
      * @param device - The Device to add to the database
      */
-    void addDevice(Device device);
+    void addDevice(Device device) throws DeviceAlreadyExistException;
+
+    /**
+     * This method returns true if the device is in the database
+     * @param device - The Device to add to the database
+     *
+     */
+    boolean isInDatabase(Device device);
 
     /**
      * This method deletes a Device from the database.

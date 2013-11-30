@@ -23,6 +23,16 @@ public abstract class Person{
     @Email
     protected String email;
 
+    public Long getIdDocument() {
+        return idDocument;
+    }
+
+    public void setIdDocument(Long idDocument) {
+        this.idDocument = idDocument;
+    }
+
+    protected Long idDocument;
+
     public Institution getInstitution() {
         return institution;
     }

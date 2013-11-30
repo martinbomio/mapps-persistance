@@ -48,7 +48,6 @@ public interface UserDAO {
     /**
      * Method that gets all the users
      * @return all the users
-     * @throws UserNotFoundException If there are no users in the database
      */
-    List<User> getAllUsers() throws UserNotFoundException;
+    List<User> getAllUsers();
 }

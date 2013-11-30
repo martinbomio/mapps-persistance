@@ -39,7 +39,7 @@ public class InstitutionDAOImpl implements InstitutionDAO {
 
     @Override
     public void updateInstitution(Institution institution) throws InstitutionNotFoundException {
-        Institution instAux=getByName(institution.getName());
+        Institution instAux=getInstitutionByName(institution.getName());
         if(instAux!=null){
             entityManager.merge(institution);
             logger.info("A Institution was updated in the database");
@@ -59,7 +59,7 @@ public class InstitutionDAOImpl implements InstitutionDAO {
     }
 
     @Override
-    public Institution getByName(String name) throws InstitutionNotFoundException {
+    public Institution getInstitutionByName(String name) throws InstitutionNotFoundException {
         Query query = entityManager.createQuery("from Institutions as i where i.name = :name")
                 .setParameter("name", name);
         List<Institution> institutions = query.getResultList();
@@ -71,7 +71,7 @@ public class InstitutionDAOImpl implements InstitutionDAO {
     }
 
     @Override
-    public List<Institution> getAll() {
+    public List<Institution> getAllInstitutions() {
         Query query = entityManager.createQuery("from Institutions");
         return query.getResultList();
     }

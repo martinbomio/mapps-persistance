@@ -1,5 +1,6 @@
 package com.mapps.persistence.impl;
 
+import com.mapps.exceptions.DeviceAlreadyExistException;
 import com.mapps.exceptions.DeviceNotFoundException;
 import com.mapps.model.Device;
 import com.mapps.persistence.DeviceDAO;
@@ -8,6 +9,8 @@ import org.apache.log4j.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import java.util.List;
 
 
 /**
@@ -21,9 +24,28 @@ public class DeviceDAOImpl implements DeviceDAO{
     EntityManager entityManager;
 
     @Override
-    public void addDevice(Device device) {
+    public void addDevice(Device device) throws DeviceAlreadyExistException{
+
+        if(isInDatabase(device)){
+            throw new DeviceAlreadyExistException();
+        }
         logger.info("add a Device to database");
         entityManager.persist(device);
+    }
+
+    @Override
+    public boolean isInDatabase(Device device) {
+        boolean aux=true;
+        Query query=entityManager.createQuery("from Devices as d where d.dirLow=?");
+        query.setParameter(0,device.getDirLow());
+        List<Device> results=query.getResultList();
+        if(results.size()==0){
+           aux=false;
+        }else{
+            aux=true;
+        }
+        return aux;
+
     }
 
     @Override
@@ -56,6 +78,12 @@ public class DeviceDAOImpl implements DeviceDAO{
 
     @Override
     public Device getDeviceByDir(long dirLow) throws DeviceNotFoundException {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        Query query=entityManager.createQuery("from Devices as d where d.dirLow=?");
+        query.setParameter(0,dirLow);
+        List<Device> results=query.getResultList();
+        if(results.size()!=1){
+            throw new DeviceNotFoundException();
+        }
+        return results.get(0);
     }
 }
