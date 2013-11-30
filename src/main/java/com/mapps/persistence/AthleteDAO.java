@@ -1,15 +1,16 @@
 package com.mapps.persistence;
 
+import java.util.List;
+import javax.ejb.Local;
+
 import com.mapps.exceptions.AthleteAlreadyExistException;
 import com.mapps.exceptions.AthleteNotFoundException;
 import com.mapps.model.Athlete;
-import com.mapps.model.Institution;
-
-import java.util.List;
 
 /**
  * AthleteDAO interface
  */
+@Local
 public interface AthleteDAO {
     /**
      * This method adds a Athlete to the database.

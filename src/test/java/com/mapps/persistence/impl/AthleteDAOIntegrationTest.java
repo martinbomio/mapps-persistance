@@ -1,15 +1,19 @@
 package com.mapps.persistence.impl;
 
+import javax.ejb.embeddable.EJBContainer;
+import javax.naming.NamingException;
+
+import org.junit.AfterClass;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
 import com.mapps.exceptions.AthleteAlreadyExistException;
 import com.mapps.exceptions.AthleteNotFoundException;
 import com.mapps.model.Athlete;
 import com.mapps.persistence.AthleteDAO;
 
-import org.junit.*;
-
-
-import javax.ejb.embeddable.EJBContainer;
-import javax.naming.NamingException;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -23,11 +27,12 @@ public class AthleteDAOIntegrationTest {
 
     @BeforeClass
     public static void startTheContainer(){
+
         ejbContainer=EJBContainer.createEJBContainer();
     }
     @Before
      public void lookupABean() throws NamingException {
-        Object object2=ejbContainer.getContext().lookup("java:global/modelstorage/athleteDAO");
+        Object object2=ejbContainer.getContext().lookup("java:global/mapps-persistence/AthleteDAO");
         assertTrue(object2 instanceof AthleteDAO);
         athleteDAO=(AthleteDAO)object2;
     }

@@ -7,7 +7,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -23,8 +22,6 @@ public class User extends Person{
     private String userName;
     @Column(nullable = false)
     private String password;
-    @ManyToOne
-    private Institution institution;
     @Enumerated
     private Role role;
     private boolean enabled;
@@ -96,14 +93,6 @@ public class User extends Person{
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
-    }
-
-    public Institution getInstitution() {
-        return institution;
-    }
-
-    public void setInstitution(Institution institution) {
-        this.institution = institution;
     }
 
     public Role getRole() {
