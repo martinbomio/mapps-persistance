@@ -32,14 +32,11 @@ public class Athlete extends Person{
         this.enabled = enabled;
     }
 
-
-
-
     public Athlete() {
     }
 
     public Athlete(String name, String lastName, Date birth, Gender gender,
-                   String email,double weight, double height,long idDocument) {
+                   String email,double weight, double height,long idDocument, Institution institution) {
         this.name = name;
         this.lastName = lastName;
         this.birth = birth;
@@ -49,6 +46,7 @@ public class Athlete extends Person{
         this.height = height;
         this.idDocument = idDocument;
         this.enabled=true;
+        this.institution = institution;
     }
     @Override
     public boolean equals(Object obj){

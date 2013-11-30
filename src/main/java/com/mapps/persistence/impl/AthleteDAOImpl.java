@@ -1,19 +1,17 @@
 package com.mapps.persistence.impl;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import com.mapps.exceptions.AthleteAlreadyExistException;
-import com.mapps.model.Institution;
 import org.apache.log4j.Logger;
 
+import com.mapps.exceptions.AthleteAlreadyExistException;
 import com.mapps.exceptions.AthleteNotFoundException;
 import com.mapps.model.Athlete;
 import com.mapps.persistence.AthleteDAO;
-
-import java.util.List;
 
 /**
  *
@@ -38,8 +36,8 @@ public class AthleteDAOImpl implements AthleteDAO{
     @Override
     public boolean isInDatabase(Athlete athlete)  {
         boolean aux=true;
-        Query query=entityManager.createQuery("from Athletes as a where a.idDocument=?");
-        query.setParameter(0,athlete.getIdDocument());
+        Query query=entityManager.createQuery("from Athlete where idDocument = :document");
+        query.setParameter("document",athlete.getIdDocument());
         List<Athlete> results=query.getResultList();
         if (results.size() == 0){
                 aux=false;
@@ -81,7 +79,7 @@ public class AthleteDAOImpl implements AthleteDAO{
 
     @Override
     public Athlete getAthleteByName(String name) throws AthleteNotFoundException {
-       Query query=entityManager.createQuery("from Athletes as a where a.name = :name");
+       Query query=entityManager.createQuery("from Athlete as a where a.name = :name");
        query.setParameter("name",name);
         List<Athlete> results = query.getResultList();
         if (results.size() != 1){
@@ -93,8 +91,8 @@ public class AthleteDAOImpl implements AthleteDAO{
 
     @Override
     public Athlete getAthleteByIdDocument(long idDocument) throws AthleteNotFoundException {
-        Query query=entityManager.createQuery("from Athletes as a where a.idDocument=?");
-        query.setParameter(0,idDocument);
+        Query query=entityManager.createQuery("from Athlete as a where a.idDocument= :document");
+        query.setParameter("document",idDocument);
         List<Athlete> results=query.getResultList();
         if (results.size() != 1){
             throw new AthleteNotFoundException();

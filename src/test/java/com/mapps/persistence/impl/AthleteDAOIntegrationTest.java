@@ -47,7 +47,7 @@ public class AthleteDAOIntegrationTest {
     @Test
     public void testAthlete() throws AthleteNotFoundException,AthleteAlreadyExistException{
         testAthlete=new Athlete(null, null, null,null,
-                null,1.5, 1.2,44475992);
+                null,1.5, 1.2,44475992,null);
         athleteDAO.addAthlete(testAthlete);
 
         Athlete returnedAthlete = athleteDAO.getAthleteByIdDocument(testAthlete.getIdDocument());
