@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import com.mapps.exceptions.InstitutionAlreadyExistException;
 import org.apache.log4j.Logger;
 
 import com.mapps.exceptions.InstitutionNotFoundException;
@@ -23,9 +24,29 @@ public class InstitutionDAOImpl implements InstitutionDAO {
     EntityManager entityManager;
 
     @Override
-    public void addInstitution(Institution institution) {
+    public void addInstitution(Institution institution) throws InstitutionAlreadyExistException {
+       if(isInDatabase(institution)){
+           throw new InstitutionAlreadyExistException();
+       }
+
         logger.info("A Institution was added to the database");
         entityManager.persist(institution);
+    }
+
+    @Override
+    public boolean isInDatabase(Institution institution) {
+        boolean aux=true;
+
+        Query query = entityManager.createQuery("from Institutions as i where i.name = :name")
+                .setParameter("name", institution.getName());
+        List<Institution> institutions = query.getResultList();
+        if (institutions.size() == 0){
+            aux=false;
+        }else{
+            aux=true;
+        }
+        return aux;
+
     }
 
     @Override

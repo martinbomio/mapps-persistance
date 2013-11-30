@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import com.mapps.exceptions.SportAlreadyExistException;
 import org.apache.log4j.Logger;
 
 import com.mapps.exceptions.SportNotFoundException;
@@ -23,9 +24,27 @@ public class SportDAOImpl implements SportDAO {
     EntityManager entityManager;
 
     @Override
-    public void addSport(Sport sport) {
+    public void addSport(Sport sport) throws SportAlreadyExistException {
+
+        if(isInDatabase(sport)){
+            throw new SportAlreadyExistException();
+        }
         logger.info("A sport was added to the database");
         entityManager.persist(sport);
+    }
+
+    @Override
+    public boolean isInDatabase(Sport sport) {
+        boolean aux=true;
+        Query query=entityManager.createQuery("from Sports as s where s.name=?");
+        query.setParameter(0,sport.getName());
+        List<Sport> result=query.getResultList();
+        if(result.size()==0){
+            aux=false;
+        }else{
+            aux=true;
+        }
+        return aux;
     }
 
     @Override

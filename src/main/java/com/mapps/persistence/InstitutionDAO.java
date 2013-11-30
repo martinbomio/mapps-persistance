@@ -2,6 +2,7 @@ package com.mapps.persistence;
 
 import java.util.List;
 
+import com.mapps.exceptions.InstitutionAlreadyExistException;
 import com.mapps.exceptions.InstitutionNotFoundException;
 import com.mapps.model.Institution;
 
@@ -13,8 +14,15 @@ public interface InstitutionDAO {
     /**
      * This method adds a Institution to the database.
      * @param institution - The Institution added to the database
+     *@throws InstitutionAlreadyExistException
      */
-     void addInstitution(Institution institution);
+     void addInstitution(Institution institution)throws InstitutionAlreadyExistException;
+
+    /**
+     * This method returns true if the Institution is in the database.
+     * @param institution - The Institution added to the database
+     */
+    boolean isInDatabase(Institution institution);
 
     /**
      * This method deletes a Institution from the database.
