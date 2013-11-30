@@ -7,6 +7,8 @@ import com.mapps.exceptions.AthleteAlreadyExistException;
 import com.mapps.exceptions.AthleteNotFoundException;
 import com.mapps.model.Athlete;
 
+import java.util.List;
+
 /**
  * AthleteDAO interface
  */

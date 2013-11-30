@@ -26,9 +26,9 @@ public class AthleteDAOImpl implements AthleteDAO{
     @Override
     public void addAthlete(Athlete athlete) throws AthleteAlreadyExistException {
 
-        if(isInDatabase(athlete)){
-            throw new AthleteAlreadyExistException();
-        }
+       // if(isInDatabase(athlete)){
+         //   throw new AthleteAlreadyExistException();
+        //}
         logger.info("a athlete was added to the database");
         entityManager.persist(athlete);
     }
@@ -91,8 +91,8 @@ public class AthleteDAOImpl implements AthleteDAO{
 
     @Override
     public Athlete getAthleteByIdDocument(long idDocument) throws AthleteNotFoundException {
-        Query query=entityManager.createQuery("from Athlete as a where a.idDocument= :document");
-        query.setParameter("document",idDocument);
+        Query query=entityManager.createQuery("from Athletes as a where a.idDocument=?");
+        query.setParameter(0,idDocument);
         List<Athlete> results=query.getResultList();
         if (results.size() != 1){
             throw new AthleteNotFoundException();
