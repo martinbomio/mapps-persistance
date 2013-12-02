@@ -3,9 +3,12 @@ package com.mapps.persistence;
 import com.mapps.exceptions.ProcessedDataUnitNotFoundException;
 import com.mapps.model.ProcessedDataUnit;
 
+import javax.ejb.Local;
+
 /**
  * ProcessedDataUnitDAO interface
  */
+@Local
 public interface ProcessedDataUnitDAO {
 
     /**

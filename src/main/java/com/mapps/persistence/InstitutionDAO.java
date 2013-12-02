@@ -6,9 +6,12 @@ import com.mapps.exceptions.InstitutionAlreadyExistException;
 import com.mapps.exceptions.InstitutionNotFoundException;
 import com.mapps.model.Institution;
 
+import javax.ejb.Local;
+
 /**
  * InstitutionDAO interface
  */
+@Local
 public interface InstitutionDAO {
 
     /**

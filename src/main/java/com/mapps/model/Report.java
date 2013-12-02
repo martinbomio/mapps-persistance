@@ -23,6 +23,7 @@ public class Report {
     private String url;
     @Column(nullable = false)
     private Date createdDate;
+    @Column(nullable=false,unique=true)
     private String name;
     private ReportType type;
 

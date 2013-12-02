@@ -1,5 +1,6 @@
 package com.mapps.persistence.impl;
 
+import com.mapps.exceptions.TrainingAlreadyExistException;
 import com.mapps.exceptions.TrainingNotFoundException;
 import com.mapps.model.Training;
 import com.mapps.persistence.TrainingDAO;
@@ -14,13 +15,9 @@ import javax.persistence.Query;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Usuario1
- * Date: 27/11/13
- * Time: 09:41 AM
- * To change this template use File | Settings | File Templates.
+ *
  */
-@Stateless(name = "TrainingDao")
+@Stateless(name = "TrainingDAO")
 public class TrainingDAOImpl implements TrainingDAO {
 
     Logger logger = Logger.getLogger(TrainingDAOImpl.class);
@@ -28,9 +25,29 @@ public class TrainingDAOImpl implements TrainingDAO {
     EntityManager entityManager;
 
     @Override
-    public void addTraining(Training training) {
+    public void addTraining(Training training) throws TrainingAlreadyExistException {
+
+        if(isInDatabase(training)){
+            throw new TrainingAlreadyExistException();
+        }
         logger.info("A Training was added to the database");
         entityManager.persist(training);
+    }
+
+    private List<Training> getByName(Training training){
+        Query query=entityManager.createQuery("from Training as t where t.name=:name").setParameter("name",training.getName());
+        List<Training> results=query.getResultList();
+        return results;
+    }
+    private boolean isInDatabase(Training training){
+        boolean aux=true;
+        List<Training> results=getByName(training);
+        if (results.size() == 0){
+            aux=false;
+        }else{
+            aux=true;
+        }
+        return aux;
     }
 
     @Override
@@ -64,13 +81,25 @@ public class TrainingDAOImpl implements TrainingDAO {
 
     @Override
     public Training getTrainingByDate(Long trainingDate) throws TrainingNotFoundException {
-        Query query=entityManager.createQuery("from Trainings as t where t.date=:date");
+        Query query=entityManager.createQuery("from Training as t where t.date=:date");
         query.setParameter("date",trainingDate);
         List<Training> results=query.getResultList();
         if(results.size()!=1) {
             throw new TrainingNotFoundException();
         }
             return results.get(0);
+
+
+    }
+    @Override
+    public Training getTrainingByName(String trainingName) throws TrainingNotFoundException {
+        Query query=entityManager.createQuery("from Training as t where t.name=:name");
+        query.setParameter("name",trainingName);
+        List<Training> results=query.getResultList();
+        if(results.size()!=1) {
+            throw new TrainingNotFoundException();
+        }
+        return results.get(0);
 
 
     }

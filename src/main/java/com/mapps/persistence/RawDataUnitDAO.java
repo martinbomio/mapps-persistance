@@ -3,9 +3,12 @@ package com.mapps.persistence;
 import com.mapps.exceptions.RawDataUnitNotFoundException;
 import com.mapps.model.RawDataUnit;
 
+import javax.ejb.Local;
+
 /**
  *    RawDataUnitDAO interface
  */
+@Local
 public interface RawDataUnitDAO {
     /**
      * This method adds a RawDataUnit to the database.

@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import com.mapps.exceptions.UserAlreadyExistException;
 import org.apache.log4j.Logger;
 
 import com.mapps.exceptions.UserNotFoundException;
@@ -24,9 +25,31 @@ public class UserDAOImpl implements UserDAO {
 
 
     @Override
-    public void addUser(User user) {
+    public void addUser(User user) throws UserAlreadyExistException{
+
+        if(isInDatabase(user)){
+            throw new UserAlreadyExistException();
+        }
         logger.info("a user was added to the database");
         entityManager.persist(user);
+    }
+
+    private List<User> getByUsername(User user){
+        Query query =entityManager.createQuery("from User as u where u.userName = :name ");
+        query.setParameter("name", user.getUserName());
+        List<User> results = query.getResultList();
+        return results;
+    }
+    public boolean isInDatabase(User user){
+        boolean aux=true;
+        List<User> results=getByUsername(user);
+        if (results.size() == 0){
+            aux=false;
+        }else{
+            aux=true;
+        }
+        return aux;
+
     }
 
     @Override
@@ -59,7 +82,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public User getUserByUsername(String username) throws UserNotFoundException {
-        Query query =entityManager.createQuery("from Users as u where u.userName = :name ");
+        Query query =entityManager.createQuery("from User as u where u.userName = :name ");
         query.setParameter("name", username);
         List<User> results = query.getResultList();
         if (results.size() != 1){
@@ -70,9 +93,18 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public List<User> getAllUsers() {
-         Query query =entityManager.createQuery("from Users");
+         Query query =entityManager.createQuery("from User");
         List<User> allUsers=query.getResultList();
         return allUsers;
+    }
+
+    @Override
+    public List<User> getAllUsersByInstitution(String institutionName) {
+
+        Query query=entityManager.createQuery("select u from User as u INNER JOIN u.institution as i WHERE i.name =:name");
+        query.setParameter("name",institutionName);
+        List<User> results=query.getResultList();
+        return results;
     }
 
 

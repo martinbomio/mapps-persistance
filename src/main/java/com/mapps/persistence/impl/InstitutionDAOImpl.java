@@ -16,7 +16,7 @@ import com.mapps.persistence.InstitutionDAO;
 /**
  *
  */
-@Stateless(name = "InstitutionDao")
+@Stateless(name = "InstitutionDAO")
 public class InstitutionDAOImpl implements InstitutionDAO {
 
     Logger logger = Logger.getLogger(InstitutionDAOImpl.class);
@@ -32,14 +32,19 @@ public class InstitutionDAOImpl implements InstitutionDAO {
         logger.info("A Institution was added to the database");
         entityManager.persist(institution);
     }
+    private List<Institution> getByName(Institution institution){
+        Query query = entityManager.createQuery("from Institution as i where i.name = :name")
+                .setParameter("name", institution.getName());
+        List<Institution> institutions = query.getResultList();
+        return institutions;
+    }
+
 
     @Override
     public boolean isInDatabase(Institution institution) {
         boolean aux=true;
+        List<Institution> institutions=getByName(institution);
 
-        Query query = entityManager.createQuery("from Institutions as i where i.name = :name")
-                .setParameter("name", institution.getName());
-        List<Institution> institutions = query.getResultList();
         if (institutions.size() == 0){
             aux=false;
         }else{
@@ -81,7 +86,7 @@ public class InstitutionDAOImpl implements InstitutionDAO {
 
     @Override
     public Institution getInstitutionByName(String name) throws InstitutionNotFoundException {
-        Query query = entityManager.createQuery("from Institutions as i where i.name = :name")
+        Query query = entityManager.createQuery("from Institution as i where i.name = :name")
                 .setParameter("name", name);
         List<Institution> institutions = query.getResultList();
         if (institutions.size() != 1){
@@ -93,7 +98,7 @@ public class InstitutionDAOImpl implements InstitutionDAO {
 
     @Override
     public List<Institution> getAllInstitutions() {
-        Query query = entityManager.createQuery("from Institutions");
+        Query query = entityManager.createQuery("from Institution");
         return query.getResultList();
     }
 }

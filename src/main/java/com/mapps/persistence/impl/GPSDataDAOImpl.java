@@ -10,11 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Usuario1
- * Date: 22/11/13
- * Time: 05:45 PM
- * To change this template use File | Settings | File Templates.
+ *
  */
 @Stateless(name="GPSDataDAO")
 public class GPSDataDAOImpl implements GPSDataDAO{

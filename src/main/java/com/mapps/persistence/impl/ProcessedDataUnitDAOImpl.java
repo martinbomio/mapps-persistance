@@ -10,11 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Usuario1
- * Date: 27/11/13
- * Time: 09:27 AM
- * To change this template use File | Settings | File Templates.
+ *
  */
 @Stateless(name="ProcessedDataUnitDAO")
 public class ProcessedDataUnitDAOImpl implements ProcessedDataUnitDAO {

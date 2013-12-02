@@ -30,7 +30,7 @@ public class Training {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     Long id;
-    @Column(nullable=false)
+    @Column(nullable=false,unique = true)
     private String name;
     @Column(nullable=false)
     private Date date;
@@ -75,7 +75,7 @@ public class Training {
         this.mapAthleteDevice = mapAthleteDevice;
         this.reports = reports;
         this.sport = sport;
-      //  this.mapUserPermission = mapUserPermission;
+        this.mapUserPermission = mapUserPermission;
         this.started = started;
     }
 

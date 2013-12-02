@@ -22,15 +22,15 @@ public abstract class Person{
     protected Gender gender;
     @Email
     protected String email;
-    protected long idDocument;
+    protected String idDocument;
     @ManyToOne
     protected Institution institution;
 
-    public long getIdDocument() {
+    public String getIdDocument() {
         return idDocument;
     }
 
-    public void setIdDocument(long idDocument) {
+    public void setIdDocument(String idDocument) {
         this.idDocument = idDocument;
     }
 

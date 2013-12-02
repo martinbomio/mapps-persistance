@@ -16,7 +16,7 @@ import com.mapps.persistence.SportDAO;
 /**
  *
  */
-@Stateless(name = "SportDao")
+@Stateless(name = "SportDAO")
 public class SportDAOImpl implements SportDAO {
 
     Logger logger= Logger.getLogger(SportDAOImpl.class);
@@ -36,7 +36,7 @@ public class SportDAOImpl implements SportDAO {
     @Override
     public boolean isInDatabase(Sport sport) {
         boolean aux=true;
-        Query query=entityManager.createQuery("from Sports as s where s.name=?");
+        Query query=entityManager.createQuery("from Sport as s where s.name=?");
         query.setParameter(0,sport.getName());
         List<Sport> result=query.getResultList();
         if(result.size()==0){
@@ -81,7 +81,7 @@ public class SportDAOImpl implements SportDAO {
 
     @Override
     public Sport getSportByName(String name) throws SportNotFoundException {
-        Query query = entityManager.createQuery("from Sports as s where s.name = :name").setParameter("name", name);
+        Query query = entityManager.createQuery("from Sport as s where s.name = :name").setParameter("name", name);
         List<Sport> sports = query.getResultList();
         if(sports.size() != 1){
             logger.info("The sport is not in the database");
@@ -92,7 +92,7 @@ public class SportDAOImpl implements SportDAO {
 
     @Override
     public List<Sport> getAllSports() {
-        Query query = entityManager.createQuery("from Sports");
+        Query query = entityManager.createQuery("from Sport");
         return query.getResultList();
     }
 }

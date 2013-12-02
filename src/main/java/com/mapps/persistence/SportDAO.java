@@ -6,9 +6,12 @@ import com.mapps.exceptions.SportAlreadyExistException;
 import com.mapps.exceptions.SportNotFoundException;
 import com.mapps.model.Sport;
 
+import javax.ejb.Local;
+
 /**
  * SportDAO interface
  */
+@Local
 public interface SportDAO {
 
     /**

@@ -58,11 +58,11 @@ public interface AthleteDAO {
 
     /**
      * This method gets a Athlete from the database
-     * @param idDocument - the Athlete identification idDocument to find the Athlete in the database
+     * @param athlete - the Athlete to find by idDocument in the database
      * @return - The Athlete in the database
      * @throws AthleteNotFoundException - If the Athlete is not in the database
      */
-    Athlete getAthleteByIdDocument (long idDocument) throws AthleteNotFoundException;
+    Athlete getAthleteByIdDocument (Athlete athlete) throws AthleteNotFoundException;
 
     /**
      * Method that gets all the Athletes by institution

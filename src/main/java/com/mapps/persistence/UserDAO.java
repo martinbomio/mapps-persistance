@@ -1,19 +1,22 @@
 package com.mapps.persistence;
 
+import com.mapps.exceptions.UserAlreadyExistException;
 import com.mapps.exceptions.UserNotFoundException;
 import com.mapps.model.User;
 
+import javax.ejb.Local;
 import java.util.List;
 
 /**
  * UserDAO interface
  */
+@Local
 public interface UserDAO {
     /**
      * This method adds a User to the database.
      * @param user - The User to add to the database
      */
-    void addUser(User user);
+    void addUser(User user) throws UserAlreadyExistException;
 
     /**
      * This method deletes a User from the database.
@@ -50,4 +53,10 @@ public interface UserDAO {
      * @return all the users
      */
     List<User> getAllUsers();
+
+    /**
+     * Method that gets all the users by institution
+     * @return all the users of one institution
+     */
+    public List<User> getAllUsersByInstitution(String institutionName);
 }

@@ -1,5 +1,6 @@
 package com.mapps.persistence.impl;
 
+import com.mapps.exceptions.ReportAlreadyExistException;
 import com.mapps.exceptions.ReportNotFoundException;
 import com.mapps.model.Report;
 import com.mapps.persistence.ReportDAO;
@@ -8,13 +9,11 @@ import org.apache.log4j.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Usuario1
- * Date: 22/11/13
- * Time: 03:54 PM
- * To change this template use File | Settings | File Templates.
+ *
  */
 @Stateless(name="ReportDAO")
 public class ReportDAOImpl implements ReportDAO {
@@ -24,9 +23,24 @@ public class ReportDAOImpl implements ReportDAO {
     EntityManager entityManager;
 
     @Override
-    public void addReport(Report report) {
+    public void addReport(Report report)throws ReportAlreadyExistException {
+
+        if(isInDatabase(report)){
+            throw new ReportAlreadyExistException();
+        }
         logger.info("a Report was added to the database");
         entityManager.persist(report);
+    }
+    private boolean isInDatabase(Report report){
+        boolean aux=true;
+        Query query=entityManager.createQuery("from Report as r where r.name=:name").setParameter("name",report.getName());
+        List<Report> result=query.getResultList();
+        if (result.size() == 0){
+            aux=false;
+        }else{
+            aux=true;
+        }
+        return aux;
     }
 
     @Override
@@ -55,5 +69,13 @@ public class ReportDAOImpl implements ReportDAO {
        }else{
            throw new ReportNotFoundException();
        }
+    }
+
+    @Override
+    public List<Report> getAllReportsByDate(Long reportDate) {
+        Query query=entityManager.createQuery("from Report as r where r.createdDate=:date");
+        query.setParameter("date",reportDate);
+        List<Report> result=query.getResultList();
+        return result;
     }
 }

@@ -16,7 +16,7 @@ import java.util.List;
 /**
  *
  */
-@Stateless(name = "DeviceDao")
+@Stateless(name = "DeviceDAO")
 public class DeviceDAOImpl implements DeviceDAO{
 
     Logger logger=Logger.getLogger(DeviceDAOImpl.class);
@@ -33,12 +33,18 @@ public class DeviceDAOImpl implements DeviceDAO{
         entityManager.persist(device);
     }
 
+    private List<Device> getByDir(Device device){
+        Query query=entityManager.createQuery("from Devices as d where d.dirLow=:dir");
+        query.setParameter("dir",device.getDirLow());
+        List<Device> results=query.getResultList();
+        return results;
+    }
+
+
     @Override
     public boolean isInDatabase(Device device) {
         boolean aux=true;
-        Query query=entityManager.createQuery("from Devices as d where d.dirLow=?");
-        query.setParameter(0,device.getDirLow());
-        List<Device> results=query.getResultList();
+        List<Device> results=getByDir(device);
         if(results.size()==0){
            aux=false;
         }else{
@@ -77,13 +83,21 @@ public class DeviceDAOImpl implements DeviceDAO{
     }
 
     @Override
-    public Device getDeviceByDir(long dirLow) throws DeviceNotFoundException {
-        Query query=entityManager.createQuery("from Devices as d where d.dirLow=?");
-        query.setParameter(0,dirLow);
+    public Device getDeviceByDir(String dirLow) throws DeviceNotFoundException {
+        Query query=entityManager.createQuery("from Devices as d where d.dirLow=:dir");
+        query.setParameter("dir",dirLow);
         List<Device> results=query.getResultList();
         if(results.size()!=1){
             throw new DeviceNotFoundException();
         }
         return results.get(0);
+    }
+
+    @Override
+    public List<Device> getAllDevicesByInstitution(String institutionName) {
+        Query query=entityManager.createQuery("select d from Device as d INNER JOIN d.institution as i WHERE i.name =:name");
+        query.setParameter("name",institutionName);
+        List<Device> results=query.getResultList();
+        return results;
     }
 }

@@ -4,9 +4,13 @@ import com.mapps.exceptions.DeviceAlreadyExistException;
 import com.mapps.exceptions.DeviceNotFoundException;
 import com.mapps.model.Device;
 
+import javax.ejb.Local;
+import java.util.List;
+
 /**
  * SportDAO interface
  */
+@Local
 public interface DeviceDAO {
 
     /**
@@ -49,5 +53,12 @@ public interface DeviceDAO {
      * @return - The Device in the database
      * @throws DeviceNotFoundException - If the Sport is not in the database
      */
-    Device getDeviceByDir (long dirLow) throws DeviceNotFoundException;
+    Device getDeviceByDir (String dirLow) throws DeviceNotFoundException;
+
+    /**
+     * Method that gets all the Devices of one institution
+     * @param institutionName
+     * @return all the Devices of one institution
+     */
+    List<Device> getAllDevicesByInstitution(String institutionName);
 }

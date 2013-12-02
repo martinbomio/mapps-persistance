@@ -36,7 +36,7 @@ public class Athlete extends Person{
     }
 
     public Athlete(String name, String lastName, Date birth, Gender gender,
-                   String email,double weight, double height,long idDocument, Institution institution) {
+                   String email,double weight, double height,String idDocument, Institution institution) {
         this.name = name;
         this.lastName = lastName;
         this.birth = birth;
@@ -61,7 +61,7 @@ public class Athlete extends Person{
         Athlete other=  (Athlete)obj;
         if(name.equals(other.name)&&lastName.equals(other.lastName)&&gender.equals(other.gender)&&
                 email.equals(other.email)&&birth.equals(other.birth)&&(weight==other.weight)&&
-                (height==other.height)&&idDocument==other.idDocument){
+                (height==other.height)&&idDocument.equals(idDocument)&&institution.equals(other.institution)){
             aux=true;
             return aux;
         }

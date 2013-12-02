@@ -26,27 +26,29 @@ public class AthleteDAOImpl implements AthleteDAO{
     @Override
     public void addAthlete(Athlete athlete) throws AthleteAlreadyExistException {
 
-       // if(isInDatabase(athlete)){
-         //   throw new AthleteAlreadyExistException();
-        //}
+        if(isInDatabase(athlete)){
+            throw new AthleteAlreadyExistException();
+        }
         logger.info("a athlete was added to the database");
         entityManager.persist(athlete);
     }
 
-    @Override
-    public boolean isInDatabase(Athlete athlete)  {
-        boolean aux=true;
+    private List<Athlete> getByIdDocument(Athlete athlete){
         Query query=entityManager.createQuery("from Athlete where idDocument = :document");
         query.setParameter("document",athlete.getIdDocument());
         List<Athlete> results=query.getResultList();
+        return results;
+    }
+    @Override
+    public boolean isInDatabase(Athlete athlete)  {
+        boolean aux=true;
+        List<Athlete> results=getByIdDocument(athlete);
         if (results.size() == 0){
                 aux=false;
         }else{
                 aux=true;
         }
         return aux;
-
-
     }
 
     @Override
@@ -90,10 +92,8 @@ public class AthleteDAOImpl implements AthleteDAO{
     }
 
     @Override
-    public Athlete getAthleteByIdDocument(long idDocument) throws AthleteNotFoundException {
-        Query query=entityManager.createQuery("from Athletes as a where a.idDocument=?");
-        query.setParameter(0,idDocument);
-        List<Athlete> results=query.getResultList();
+    public Athlete getAthleteByIdDocument(Athlete athlete) throws AthleteNotFoundException {
+        List<Athlete> results=getByIdDocument(athlete);
         if (results.size() != 1){
             throw new AthleteNotFoundException();
         }
@@ -103,8 +103,9 @@ public class AthleteDAOImpl implements AthleteDAO{
 
     @Override
     public List<Athlete> getAllAthletesByInstitution(String institutionName) {
-        Query query=entityManager.createQuery("from Athlete as a INNER JOIN Institution as i WHERE i.name =?");
-        query.setParameter(0,institutionName);
+
+        Query query=entityManager.createQuery("select a from Athlete as a INNER JOIN a.institution as i WHERE i.name =:name");
+        query.setParameter("name",institutionName);
         List<Athlete> results=query.getResultList();
         return results;
     }

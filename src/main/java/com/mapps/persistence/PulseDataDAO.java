@@ -3,9 +3,12 @@ package com.mapps.persistence;
 import com.mapps.exceptions.PulseDataNotFoundException;
 import com.mapps.model.PulseData;
 
+import javax.ejb.Local;
+
 /**
  * PulseDataDAO interface
  */
+@Local
 public interface PulseDataDAO {
     /**
      * This method adds a PulseData to the database.

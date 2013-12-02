@@ -3,9 +3,12 @@ package com.mapps.persistence;
 import com.mapps.exceptions.IMUDataNotFoundException;
 import com.mapps.model.IMUData;
 
+import javax.ejb.Local;
+
 /**
  * IMUDataDAO interface
  */
+@Local
 public interface IMUDataDAO {
     /**
      * This method adds a IMUData to the database.

@@ -3,13 +3,12 @@ package com.mapps.persistence;
 import com.mapps.exceptions.GPSDataNotFoundException;
 import com.mapps.model.GPSData;
 
+import javax.ejb.Local;
+
 /**
- * Created with IntelliJ IDEA.
- * User: Usuario1
- * Date: 22/11/13
- * Time: 05:41 PM
- * To change this template use File | Settings | File Templates.
+ * .
  */
+@Local
 public interface GPSDataDAO {
     /**
      * This method adds a GPSData to the database.
