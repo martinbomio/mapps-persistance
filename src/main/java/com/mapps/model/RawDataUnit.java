@@ -1,5 +1,6 @@
 package com.mapps.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -12,6 +13,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.mapps.interfaces.DataParser;
+import com.mapps.utils.Constants;
 
 /**
  * Represent the data unit that works as input for the Kalman Filter. This object
@@ -120,6 +122,28 @@ public class RawDataUnit implements DataParser{
 
     @Override
     public void populate(String data) {
-        //TODO: implement populate on RawDataUnit
+        if (data == null){
+            throw new IllegalArgumentException();
+        }
+        String[] separetedData = data.split(",");
+        if (separetedData.length >0 ){
+            imuData = new ArrayList<IMUData>();
+            gpsData = new ArrayList<GPSData>();
+            pulseData = new ArrayList<PulseData>();
+        }
+        for(String d : separetedData){
+            String[] sensorData = d.split(":");
+            if( sensorData[0].equals(Constants.GPSDELIMETER)){
+                GPSData gps = new GPSData(sensorData[1]);
+                gpsData.add(gps);
+                PulseData pulse = new PulseData(sensorData[2]);
+                pulseData.add(pulse);
+            }else if( sensorData[0].equals(Constants.IMUDELIMETER)){
+                for(int i = 1; i< sensorData.length; i++){
+                    IMUData imu = new IMUData(sensorData[i]);
+                    imuData.add(imu);
+                }
+            }
+        }
     }
 }

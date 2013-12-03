@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.apache.log4j.Logger;
+
 import com.mapps.interfaces.DataParser;
 
 /**
@@ -16,6 +18,7 @@ import com.mapps.interfaces.DataParser;
 @Entity
 @Table(name = "GPSData")
 public class GPSData implements DataParser{
+    Logger logger = Logger.getLogger(GPSData.class);
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     Long id;
@@ -83,6 +86,14 @@ public class GPSData implements DataParser{
 
     @Override
     public void populate(String data) {
-        //TODO: implement populate on GPSDATA
+        if (data == null){
+            logger.error("Error parsing null data");
+            throw new IllegalArgumentException();
+        }
+        String[] split = data.split("/");
+        this.latitude = Long.parseLong(split[0]);
+        this.longitude = Long.parseLong(split[1]);
+        this.nSatelltes = Integer.parseInt(split[2]);
+        this.HDOP = Integer.parseInt(split[3]);
     }
 }
