@@ -167,12 +167,12 @@ public class Training {
         this.sport = sport;
     }
 
-    //public Map<User, Permission> getMapUserPermission() {
-     //   return mapUserPermission;
-   // }
+    public Map<User, Permission> getMapUserPermission() {
+        return mapUserPermission;
+    }
 
     public void setMapUserPermission(Map<User, Permission> mapUserPermission) {
-       // this.mapUserPermission = mapUserPermission;
+        this.mapUserPermission = mapUserPermission;
     }
 
     public boolean isStarted() {

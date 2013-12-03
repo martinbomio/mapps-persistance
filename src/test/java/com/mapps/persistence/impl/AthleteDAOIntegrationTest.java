@@ -74,15 +74,11 @@ public class AthleteDAOIntegrationTest {
         testAthlete2=new Athlete(null, null, null,null,
                 null,1.5, 1.2,"45",testInstitution);
 
-        testAthlete3=null;
 
-        if(testAthlete3==null){
-            System.out.println("hola");
-        }
 
         institutionDAO.addInstitution(testInstitution);
 
-        athleteDAO.addAthlete(testAthlete3);
+
         athleteDAO.addAthlete(testAthlete);
         athleteDAO.addAthlete(testAthlete2);
 

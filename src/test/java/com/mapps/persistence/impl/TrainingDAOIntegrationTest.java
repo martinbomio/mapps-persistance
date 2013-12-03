@@ -1,5 +1,6 @@
 package com.mapps.persistence.impl;
 
+import com.mapps.exceptions.NullParameterException;
 import com.mapps.exceptions.TrainingAlreadyExistException;
 import com.mapps.exceptions.TrainingNotFoundException;
 import com.mapps.model.Training;
@@ -43,12 +44,15 @@ public class TrainingDAOIntegrationTest {
         }
     }
     @Test
-    public void testTraining() throws TrainingAlreadyExistException, TrainingNotFoundException {
+    public void testTraining() throws TrainingAlreadyExistException, TrainingNotFoundException, NullParameterException {
         testTraining=new Training("hola",null,0,0,0,0,0,null,null,null,null);
 
         trainingDAO.addTraining(testTraining);
         Training returnedTraining = trainingDAO.getTrainingByName(testTraining.getName());
 
+        if(returnedTraining.isStarted()){
+            System.out.println("HOLAAAAAAAAAAAAAA");
+        }
         Assert.assertEquals(testTraining.getName(), returnedTraining.getName());
 
         try{

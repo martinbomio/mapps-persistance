@@ -30,6 +30,9 @@ public class GPSData implements DataParser{
 
     public GPSData() {
     }
+    public GPSData(String data) {
+        this.populate(data);
+    }
 
     public GPSData(long latitude, long longitude, int nSatelltes, int HDOP) {
         this.latitude = latitude;

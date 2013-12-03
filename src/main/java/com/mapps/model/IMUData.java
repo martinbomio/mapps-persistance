@@ -34,6 +34,9 @@ public class IMUData implements DataParser{
 
     public IMUData() {
     }
+    public IMUData(String data) {
+        this.populate(data);
+    }
 
     public IMUData(int accelX, int accelY, int accelZ, int yaw, int pitch, int roll) {
         this.accelX = accelX;

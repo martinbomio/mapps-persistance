@@ -50,6 +50,9 @@ public class RawDataUnit implements DataParser{
 
     public RawDataUnit() {
     }
+    public RawDataUnit(String data) {
+        this.populate(data);
+    }
 
     public Long getId() {
         return id;
