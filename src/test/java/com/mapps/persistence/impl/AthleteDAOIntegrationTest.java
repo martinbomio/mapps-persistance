@@ -4,6 +4,7 @@ import javax.ejb.embeddable.EJBContainer;
 import javax.naming.NamingException;
 
 import com.mapps.exceptions.InstitutionAlreadyExistException;
+import com.mapps.exceptions.NullParameterException;
 import com.mapps.model.Institution;
 import com.mapps.persistence.InstitutionDAO;
 import org.junit.AfterClass;
@@ -35,6 +36,7 @@ public class AthleteDAOIntegrationTest {
     private static EJBContainer ejbContainer;
     private Athlete testAthlete;
     private Athlete testAthlete2;
+    private Athlete testAthlete3;
     private AthleteDAO athleteDAO;
 
     private Institution testInstitution;
@@ -65,21 +67,26 @@ public class AthleteDAOIntegrationTest {
     }
 
     @Test
-    public void testAthlete() throws AthleteNotFoundException,AthleteAlreadyExistException,InstitutionAlreadyExistException{
+    public void testAthlete() throws AthleteNotFoundException, AthleteAlreadyExistException, InstitutionAlreadyExistException, NullParameterException {
         testInstitution=new Institution("hola",null,"URUGUAY");
         testAthlete=new Athlete(null, null, null,null,
                 null,1.5, 1.2,"44475992",testInstitution);
         testAthlete2=new Athlete(null, null, null,null,
                 null,1.5, 1.2,"45",testInstitution);
 
+        testAthlete3=null;
 
-
+        if(testAthlete3==null){
+            System.out.println("hola");
+        }
 
         institutionDAO.addInstitution(testInstitution);
+
+        athleteDAO.addAthlete(testAthlete3);
         athleteDAO.addAthlete(testAthlete);
         athleteDAO.addAthlete(testAthlete2);
 
-        Athlete returnedAthlete = athleteDAO.getAthleteByIdDocument(testAthlete);
+        Athlete returnedAthlete = athleteDAO.getAthleteByIdDocument(testAthlete.getIdDocument());
         List<Athlete> list=athleteDAO.getAllAthletesByInstitution(testInstitution.getName());
 
         System.out.println(list.get(0).getIdDocument());

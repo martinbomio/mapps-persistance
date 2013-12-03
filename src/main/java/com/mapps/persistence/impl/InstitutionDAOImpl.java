@@ -7,6 +7,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import com.mapps.exceptions.InstitutionAlreadyExistException;
+import com.mapps.exceptions.NullParameterException;
 import org.apache.log4j.Logger;
 
 import com.mapps.exceptions.InstitutionNotFoundException;
@@ -24,13 +25,16 @@ public class InstitutionDAOImpl implements InstitutionDAO {
     EntityManager entityManager;
 
     @Override
-    public void addInstitution(Institution institution) throws InstitutionAlreadyExistException {
-       if(isInDatabase(institution)){
+    public void addInstitution(Institution institution) throws InstitutionAlreadyExistException, NullParameterException {
+        if(institution!=null){
+        if(isInDatabase(institution)){
            throw new InstitutionAlreadyExistException();
        }
-
         logger.info("A Institution was added to the database");
         entityManager.persist(institution);
+        }else{
+            throw new NullParameterException();
+        }
     }
     private List<Institution> getByName(Institution institution){
         Query query = entityManager.createQuery("from Institution as i where i.name = :name")
@@ -39,9 +43,7 @@ public class InstitutionDAOImpl implements InstitutionDAO {
         return institutions;
     }
 
-
-    @Override
-    public boolean isInDatabase(Institution institution) {
+    private boolean isInDatabase(Institution institution) {
         boolean aux=true;
         List<Institution> institutions=getByName(institution);
 
@@ -64,11 +66,15 @@ public class InstitutionDAOImpl implements InstitutionDAO {
     }
 
     @Override
-    public void updateInstitution(Institution institution) throws InstitutionNotFoundException {
+    public void updateInstitution(Institution institution) throws InstitutionNotFoundException, NullParameterException {
+        if(institution!=null){
         Institution instAux=getInstitutionByName(institution.getName());
         if(instAux!=null){
             entityManager.merge(institution);
             logger.info("A Institution was updated in the database");
+        }
+        }else{
+            throw new NullParameterException();
         }
     }
 

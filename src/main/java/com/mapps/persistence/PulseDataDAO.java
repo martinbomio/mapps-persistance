@@ -1,5 +1,6 @@
 package com.mapps.persistence;
 
+import com.mapps.exceptions.NullParameterException;
 import com.mapps.exceptions.PulseDataNotFoundException;
 import com.mapps.model.PulseData;
 
@@ -14,7 +15,7 @@ public interface PulseDataDAO {
      * This method adds a PulseData to the database.
      * @param pulseData - The PulseData to add to the database
      */
-    void addGPSData(PulseData pulseData);
+    void addGPSData(PulseData pulseData) throws NullParameterException;
 
     /**
      * This method deletes a PulseData from the database.
@@ -28,7 +29,7 @@ public interface PulseDataDAO {
      * @param pulseData - The PulseData identification id to find the PulseData to update
      * @throws PulseDataNotFoundException  - If the PulseData is not in the database
      */
-    void updatePulseData(PulseData pulseData) throws PulseDataNotFoundException;
+    void updatePulseData(PulseData pulseData) throws PulseDataNotFoundException, NullParameterException;
 
     /**
      * This method gets a PulseData from the database

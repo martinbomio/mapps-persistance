@@ -5,6 +5,7 @@ import javax.ejb.Local;
 
 import com.mapps.exceptions.AthleteAlreadyExistException;
 import com.mapps.exceptions.AthleteNotFoundException;
+import com.mapps.exceptions.NullParameterException;
 import com.mapps.model.Athlete;
 
 import java.util.List;
@@ -19,12 +20,8 @@ public interface AthleteDAO {
      * @param athlete - The Athlete to add to the database
      * @throws AthleteAlreadyExistException - If the Athlete is already in the database
      */
-    void addAthlete(Athlete athlete) throws AthleteAlreadyExistException;
-    /**
-     * This method checks if the athlete is in the database.
-     * @param athlete - The Athlete to add to the database
-     */
-    boolean isInDatabase(Athlete athlete);
+    void addAthlete(Athlete athlete) throws AthleteAlreadyExistException, NullParameterException;
+
 
     /**
      * This method deletes a Athlete from the database.
@@ -38,7 +35,7 @@ public interface AthleteDAO {
      * @param athlete - The Athlete identification id to find the Athlete to update
      * @throws AthleteNotFoundException  - If the Athlete is not in the database
      */
-    void updateAthlete(Athlete athlete) throws AthleteNotFoundException;
+    void updateAthlete(Athlete athlete) throws AthleteNotFoundException, NullParameterException;
 
     /**
      * This method gets a Athlete from the database
@@ -58,11 +55,11 @@ public interface AthleteDAO {
 
     /**
      * This method gets a Athlete from the database
-     * @param athlete - the Athlete to find by idDocument in the database
+     * @param idDocument - the Athlete to find by idDocument in the database
      * @return - The Athlete in the database
      * @throws AthleteNotFoundException - If the Athlete is not in the database
      */
-    Athlete getAthleteByIdDocument (Athlete athlete) throws AthleteNotFoundException;
+    Athlete getAthleteByIdDocument (String idDocument) throws AthleteNotFoundException;
 
     /**
      * Method that gets all the Athletes by institution

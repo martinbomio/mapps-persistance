@@ -2,6 +2,7 @@ package com.mapps.persistence.impl;
 
 import com.mapps.exceptions.DeviceAlreadyExistException;
 import com.mapps.exceptions.DeviceNotFoundException;
+import com.mapps.exceptions.NullParameterException;
 import com.mapps.model.Device;
 import com.mapps.persistence.DeviceDAO;
 import org.apache.log4j.Logger;
@@ -24,13 +25,16 @@ public class DeviceDAOImpl implements DeviceDAO{
     EntityManager entityManager;
 
     @Override
-    public void addDevice(Device device) throws DeviceAlreadyExistException{
-
+    public void addDevice(Device device) throws DeviceAlreadyExistException, NullParameterException {
+        if(device!=null){
         if(isInDatabase(device)){
             throw new DeviceAlreadyExistException();
         }
         logger.info("add a Device to database");
         entityManager.persist(device);
+        }else{
+            throw new NullParameterException();
+        }
     }
 
     private List<Device> getByDir(Device device){
@@ -41,8 +45,8 @@ public class DeviceDAOImpl implements DeviceDAO{
     }
 
 
-    @Override
-    public boolean isInDatabase(Device device) {
+
+    private boolean isInDatabase(Device device) {
         boolean aux=true;
         List<Device> results=getByDir(device);
         if(results.size()==0){
@@ -64,11 +68,15 @@ public class DeviceDAOImpl implements DeviceDAO{
     }
 
     @Override
-    public void updateDevice(Device device) throws DeviceNotFoundException {
+    public void updateDevice(Device device) throws DeviceNotFoundException, NullParameterException {
+       if(device!=null){
        Device deviceAux=getDeviceById(device.getId());
        if(deviceAux!=null){
            entityManager.merge(device);
            logger.info("A Device was updated in the database");
+       }
+       }else{
+           throw new NullParameterException();
        }
     }
 

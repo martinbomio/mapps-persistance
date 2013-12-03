@@ -1,5 +1,6 @@
 package com.mapps.persistence;
 
+import com.mapps.exceptions.NullParameterException;
 import com.mapps.exceptions.TrainingAlreadyExistException;
 import com.mapps.exceptions.TrainingNotFoundException;
 import com.mapps.model.Training;
@@ -17,7 +18,7 @@ public interface TrainingDAO {
      * @param training - The Training added to the database
      * @throws TrainingAlreadyExistException
      */
-    void addTraining(Training training) throws TrainingAlreadyExistException;
+    void addTraining(Training training) throws TrainingAlreadyExistException, NullParameterException;
 
     /**
      * This method deletes a Training from the database.
@@ -31,7 +32,7 @@ public interface TrainingDAO {
      * @param training - The Training identification id to find the Training to update
      * @throws TrainingNotFoundException  - If the Training is not in the database
      */
-    void updateTraining(Training training) throws TrainingNotFoundException;
+    void updateTraining(Training training) throws TrainingNotFoundException, NullParameterException;
 
     /**
      * This method gets a Training from the database
@@ -58,4 +59,12 @@ public interface TrainingDAO {
      * @throws TrainingNotFoundException - If the Training is not in the database
      */
     public Training getTrainingByName(String trainingName) throws TrainingNotFoundException;
+
+/**
+ * This method returns true if the training has started
+ * @param name - the Training identification date to find the Training in the database
+ * @return - True if the training started
+ * @throws TrainingNotFoundException - If the Training is not in the database
+  */
+    public boolean isTrainingStarted(String name) throws TrainingNotFoundException;
 }

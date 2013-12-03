@@ -1,5 +1,6 @@
 package com.mapps.persistence.impl;
 
+import com.mapps.exceptions.NullParameterException;
 import com.mapps.exceptions.ProcessedDataUnitNotFoundException;
 import com.mapps.model.ProcessedDataUnit;
 import com.mapps.persistence.ProcessedDataUnitDAO;
@@ -20,9 +21,13 @@ public class ProcessedDataUnitDAOImpl implements ProcessedDataUnitDAO {
     EntityManager entityManager;
 
     @Override
-    public void addProcessedDataUnit(ProcessedDataUnit processedDataUnit) {
+    public void addProcessedDataUnit(ProcessedDataUnit processedDataUnit) throws NullParameterException {
+        if(processedDataUnit!=null){
         logger.info("a ProcessedDataUnit was added to the database");
         entityManager.persist(processedDataUnit);
+        }else{
+            throw new NullParameterException();
+        }
     }
 
     @Override
@@ -35,11 +40,15 @@ public class ProcessedDataUnitDAOImpl implements ProcessedDataUnitDAO {
     }
 
     @Override
-    public void updateProcessedDataUnit(ProcessedDataUnit processedDataUnit) throws ProcessedDataUnitNotFoundException {
+    public void updateProcessedDataUnit(ProcessedDataUnit processedDataUnit) throws ProcessedDataUnitNotFoundException, NullParameterException {
+        if(processedDataUnit!=null){
         ProcessedDataUnit processedDataUnitAux=getProcessedDataUnitById(processedDataUnit.getId());
         if(processedDataUnitAux!=null){
             entityManager.merge(processedDataUnit);
             logger.info("A ProcessedDataUnit was updated in the database");
+        }
+        }else{
+            throw new NullParameterException();
         }
     }
 

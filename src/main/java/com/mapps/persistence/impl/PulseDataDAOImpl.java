@@ -1,5 +1,6 @@
 package com.mapps.persistence.impl;
 
+import com.mapps.exceptions.NullParameterException;
 import com.mapps.exceptions.PulseDataNotFoundException;
 import com.mapps.model.PulseData;
 import com.mapps.persistence.PulseDataDAO;
@@ -19,9 +20,13 @@ public class PulseDataDAOImpl implements PulseDataDAO {
     EntityManager entityManager;
 
     @Override
-    public void addGPSData(PulseData pulseData) {
+    public void addGPSData(PulseData pulseData) throws NullParameterException {
+        if(pulseData!=null){
         logger.info("a PulseData was added to the database");
         entityManager.persist(pulseData);
+        }else{
+            throw new NullParameterException();
+        }
     }
 
     @Override
@@ -34,11 +39,15 @@ public class PulseDataDAOImpl implements PulseDataDAO {
     }
 
     @Override
-    public void updatePulseData(PulseData pulseData) throws PulseDataNotFoundException {
+    public void updatePulseData(PulseData pulseData) throws PulseDataNotFoundException, NullParameterException {
+        if(pulseData!=null){
         PulseData pulseDataAux=getPulseDataById(pulseData.getId());
         if(pulseDataAux!=null){
             entityManager.merge(pulseData);
             logger.info("A PulseData was updated in the database");
+        }
+        }else{
+            throw new NullParameterException();
         }
     }
 

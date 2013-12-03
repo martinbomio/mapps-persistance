@@ -2,6 +2,7 @@ package com.mapps.persistence;
 
 import java.util.List;
 
+import com.mapps.exceptions.NullParameterException;
 import com.mapps.exceptions.SportAlreadyExistException;
 import com.mapps.exceptions.SportNotFoundException;
 import com.mapps.model.Sport;
@@ -19,13 +20,9 @@ public interface SportDAO {
      * @param sport - The Permission to add to the database
      * @throws SportAlreadyExistException
      */
-    void addSport(Sport sport) throws SportAlreadyExistException;
+    void addSport(Sport sport) throws SportAlreadyExistException, NullParameterException;
 
-    /**
-     * This method returns true if the Sport is in the database.
-     * @param sport - The Permission to add to the database
-     */
-    boolean isInDatabase(Sport sport);
+
 
     /**
      * This method deletes a Sport from the database.
@@ -39,7 +36,7 @@ public interface SportDAO {
      * @param sport - The Sport identification id to find the Sport to update
      * @throws SportNotFoundException  - If the sport is not in the database
      */
-    void updateSport(Sport sport) throws SportNotFoundException;
+    void updateSport(Sport sport) throws SportNotFoundException, NullParameterException;
 
     /**
      * This method gets a Sport from the database

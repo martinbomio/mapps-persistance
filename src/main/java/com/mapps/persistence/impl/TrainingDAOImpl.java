@@ -1,5 +1,6 @@
 package com.mapps.persistence.impl;
 
+import com.mapps.exceptions.NullParameterException;
 import com.mapps.exceptions.TrainingAlreadyExistException;
 import com.mapps.exceptions.TrainingNotFoundException;
 import com.mapps.model.Training;
@@ -25,13 +26,16 @@ public class TrainingDAOImpl implements TrainingDAO {
     EntityManager entityManager;
 
     @Override
-    public void addTraining(Training training) throws TrainingAlreadyExistException {
-
+    public void addTraining(Training training) throws TrainingAlreadyExistException, NullParameterException {
+        if(training!=null){
         if(isInDatabase(training)){
             throw new TrainingAlreadyExistException();
         }
         logger.info("A Training was added to the database");
         entityManager.persist(training);
+        }else{
+            throw new NullParameterException();
+        }
     }
 
     private List<Training> getByName(Training training){
@@ -60,11 +64,15 @@ public class TrainingDAOImpl implements TrainingDAO {
     }
 
     @Override
-    public void updateTraining(Training training) throws TrainingNotFoundException {
+    public void updateTraining(Training training) throws TrainingNotFoundException, NullParameterException {
+        if(training!=null){
         Training trainingAux=getTrainingById(training.getId());
         if(trainingAux!=null){
             entityManager.merge(training);
             logger.info("A Training was updated in the database");
+        }
+        }else{
+            throw new NullParameterException();
         }
     }
 
@@ -78,7 +86,16 @@ public class TrainingDAOImpl implements TrainingDAO {
             throw new TrainingNotFoundException();
         }
     }
+    @Override
+    public boolean isTrainingStarted(String name) throws TrainingNotFoundException {
+        boolean started=false;
+        Training aux=getTrainingByName(name);
+        if(aux.isStarted()){
+            started=true;
+        }
+        return started;
 
+    }
     @Override
     public Training getTrainingByDate(Long trainingDate) throws TrainingNotFoundException {
         Query query=entityManager.createQuery("from Training as t where t.date=:date");

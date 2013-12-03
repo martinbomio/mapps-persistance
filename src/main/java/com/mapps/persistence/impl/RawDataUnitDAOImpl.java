@@ -1,5 +1,6 @@
 package com.mapps.persistence.impl;
 
+import com.mapps.exceptions.NullParameterException;
 import com.mapps.exceptions.RawDataUnitNotFoundException;
 import com.mapps.model.RawDataUnit;
 import com.mapps.persistence.RawDataUnitDAO;
@@ -20,9 +21,13 @@ public class RawDataUnitDAOImpl implements RawDataUnitDAO {
     EntityManager entityManager;
 
     @Override
-    public void addRawDataUnit(RawDataUnit rawDataUnit) {
+    public void addRawDataUnit(RawDataUnit rawDataUnit) throws NullParameterException {
+        if(rawDataUnit!=null){
         logger.info("a RawDataUnit was added to the database");
         entityManager.persist(rawDataUnit);
+        }else{
+            throw new NullParameterException();
+        }
     }
 
     @Override
@@ -36,11 +41,15 @@ public class RawDataUnitDAOImpl implements RawDataUnitDAO {
     }
 
     @Override
-    public void updateRawDataUnit(RawDataUnit rawDataUnit) throws RawDataUnitNotFoundException {
+    public void updateRawDataUnit(RawDataUnit rawDataUnit) throws RawDataUnitNotFoundException, NullParameterException {
+        if(rawDataUnit!=null){
         RawDataUnit rawDataUnitAux=getRawDataUnitById(rawDataUnit.getId());
         if(rawDataUnitAux!=null){
             entityManager.merge(rawDataUnit);
             logger.info("A rawDataUnit was updated in the database");
+        }
+        }else{
+            throw new NullParameterException();
         }
     }
 

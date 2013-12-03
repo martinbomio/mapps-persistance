@@ -1,6 +1,7 @@
 package com.mapps.persistence.impl;
 
 import com.mapps.exceptions.IMUDataNotFoundException;
+import com.mapps.exceptions.NullParameterException;
 import com.mapps.model.IMUData;
 import com.mapps.persistence.IMUDataDAO;
 import org.apache.log4j.Logger;
@@ -20,9 +21,13 @@ public class IMUDataDAOImpl implements IMUDataDAO {
     EntityManager entityManager;
 
     @Override
-    public void addIMUData(IMUData iMUData) {
+    public void addIMUData(IMUData iMUData) throws NullParameterException {
+        if(iMUData!=null) {
         logger.info("a IMUData was added to the database");
         entityManager.persist(iMUData);
+        }else{
+           throw new NullParameterException();
+        }
     }
 
     @Override
@@ -35,11 +40,15 @@ public class IMUDataDAOImpl implements IMUDataDAO {
     }
 
     @Override
-    public void updateIMUData(IMUData iMUData) throws IMUDataNotFoundException {
+    public void updateIMUData(IMUData iMUData) throws IMUDataNotFoundException, NullParameterException {
+        if(iMUData!=null) {
         IMUData iMUDataAux=getIMUDataById(iMUData.getId());
         if(iMUDataAux!=null){
             entityManager.merge(iMUData);
             logger.info("A IMUData was updated in the database");
+        }
+        }else{
+            throw new NullParameterException();
         }
     }
 

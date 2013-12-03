@@ -2,6 +2,7 @@ package com.mapps.persistence.impl;
 
 import com.mapps.exceptions.InstitutionAlreadyExistException;
 import com.mapps.exceptions.InstitutionNotFoundException;
+import com.mapps.exceptions.NullParameterException;
 import com.mapps.model.Institution;
 import com.mapps.persistence.InstitutionDAO;
 import org.junit.*;
@@ -48,7 +49,7 @@ public class InstitutionDAOIntegrationTest {
     }
 
     @Test
-    public void testInstitution() throws InstitutionAlreadyExistException, InstitutionNotFoundException {
+    public void testInstitution() throws InstitutionAlreadyExistException, InstitutionNotFoundException, NullParameterException {
         testInstitution=new Institution("hola","desc","URUGUAY");
         testInstitution2=new Institution("hola2","desc","URUGUAY");
         institutionDAO.addInstitution(testInstitution);

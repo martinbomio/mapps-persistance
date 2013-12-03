@@ -1,6 +1,7 @@
 package com.mapps.persistence;
 
 import com.mapps.exceptions.GPSDataNotFoundException;
+import com.mapps.exceptions.NullParameterException;
 import com.mapps.model.GPSData;
 
 import javax.ejb.Local;
@@ -14,7 +15,7 @@ public interface GPSDataDAO {
      * This method adds a GPSData to the database.
      * @param gPSData - The GPSData to add to the database
      */
-    void addGPSData(GPSData gPSData);
+    void addGPSData(GPSData gPSData) throws NullParameterException;
 
     /**
      * This method deletes a GPSData from the database.
@@ -28,7 +29,7 @@ public interface GPSDataDAO {
      * @param gPSData - The GPSData identification id to find the GPSData to update
      * @throws GPSDataNotFoundException  - If the GPSData is not in the database
      */
-    void updateGPSData(GPSData gPSData) throws GPSDataNotFoundException;
+    void updateGPSData(GPSData gPSData) throws GPSDataNotFoundException, NullParameterException;
 
     /**
      * This method gets a GPSData from the database

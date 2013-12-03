@@ -1,5 +1,6 @@
 package com.mapps.persistence;
 
+import com.mapps.exceptions.NullParameterException;
 import com.mapps.exceptions.UserAlreadyExistException;
 import com.mapps.exceptions.UserNotFoundException;
 import com.mapps.model.User;
@@ -16,7 +17,7 @@ public interface UserDAO {
      * This method adds a User to the database.
      * @param user - The User to add to the database
      */
-    void addUser(User user) throws UserAlreadyExistException;
+    void addUser(User user) throws UserAlreadyExistException, NullParameterException;
 
     /**
      * This method deletes a User from the database.
@@ -30,7 +31,7 @@ public interface UserDAO {
      * @param user - The User identification id to find the User to update
      * @throws UserNotFoundException  - If the User is not in the database
      */
-    void updateUser(User user) throws UserNotFoundException;
+    void updateUser(User user) throws UserNotFoundException, NullParameterException;
 
     /**
      * This method gets a User from the database

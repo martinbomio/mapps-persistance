@@ -1,6 +1,7 @@
 package com.mapps.persistence;
 
 import com.mapps.exceptions.IMUDataNotFoundException;
+import com.mapps.exceptions.NullParameterException;
 import com.mapps.model.IMUData;
 
 import javax.ejb.Local;
@@ -14,7 +15,7 @@ public interface IMUDataDAO {
      * This method adds a IMUData to the database.
      * @param iMUData - The IMUData to add to the database
      */
-    void addIMUData(IMUData iMUData);
+    void addIMUData(IMUData iMUData) throws NullParameterException;
 
     /**
      * This method deletes a IMUData from the database.
@@ -28,7 +29,7 @@ public interface IMUDataDAO {
      * @param iMUData - The IMUData identification id to find the IMUData to update
      * @throws IMUDataNotFoundException  - If the IMUData is not in the database
      */
-    void updateIMUData(IMUData iMUData) throws IMUDataNotFoundException;
+    void updateIMUData(IMUData iMUData) throws IMUDataNotFoundException, NullParameterException;
 
     /**
      * This method gets a IMUData from the database

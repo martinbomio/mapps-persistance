@@ -1,5 +1,6 @@
 package com.mapps.persistence;
 
+import com.mapps.exceptions.NullParameterException;
 import com.mapps.exceptions.ReportAlreadyExistException;
 import com.mapps.exceptions.ReportNotFoundException;
 import com.mapps.model.Report;
@@ -17,7 +18,7 @@ public interface ReportDAO {
      * @param report - The Report to add to the database
      * @throws ReportAlreadyExistException
      */
-    void addReport(Report report)throws ReportAlreadyExistException;
+    void addReport(Report report) throws ReportAlreadyExistException, NullParameterException;
 
     /**
      * This method deletes a Report from the database.
@@ -31,7 +32,7 @@ public interface ReportDAO {
      * @param report - The Report identification id to find the Report to update
      * @throws ReportNotFoundException  - If the Report is not in the database
      */
-    void updateReport(Report report) throws ReportNotFoundException;
+    void updateReport(Report report) throws ReportNotFoundException, NullParameterException;
 
     /**
      * This method gets a Report from the database

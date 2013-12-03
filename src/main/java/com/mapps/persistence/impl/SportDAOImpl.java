@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import com.mapps.exceptions.NullParameterException;
 import com.mapps.exceptions.SportAlreadyExistException;
 import org.apache.log4j.Logger;
 
@@ -24,20 +25,23 @@ public class SportDAOImpl implements SportDAO {
     EntityManager entityManager;
 
     @Override
-    public void addSport(Sport sport) throws SportAlreadyExistException {
-
+    public void addSport(Sport sport) throws SportAlreadyExistException, NullParameterException {
+        if(sport!=null){
         if(isInDatabase(sport)){
             throw new SportAlreadyExistException();
         }
         logger.info("A sport was added to the database");
         entityManager.persist(sport);
+        }else{
+            throw new NullParameterException();
+        }
     }
 
-    @Override
-    public boolean isInDatabase(Sport sport) {
+
+    private boolean isInDatabase(Sport sport) {
         boolean aux=true;
-        Query query=entityManager.createQuery("from Sport as s where s.name=?");
-        query.setParameter(0,sport.getName());
+        Query query=entityManager.createQuery("from Sport as s where s.name=:name");
+        query.setParameter("name",sport.getName());
         List<Sport> result=query.getResultList();
         if(result.size()==0){
             aux=false;
@@ -57,12 +61,15 @@ public class SportDAOImpl implements SportDAO {
     }
 
     @Override
-    public void updateSport(Sport sport) throws SportNotFoundException {
-
+    public void updateSport(Sport sport) throws SportNotFoundException, NullParameterException {
+        if(sport!=null){
         Sport sportAux=getSportByName(sport.getName());
         if(sportAux!=null){
             entityManager.merge(sport);
             logger.info("A Sport has been updated");
+        }
+        }else{
+            throw new NullParameterException();
         }
     }
 

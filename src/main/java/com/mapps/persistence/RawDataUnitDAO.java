@@ -1,5 +1,6 @@
 package com.mapps.persistence;
 
+import com.mapps.exceptions.NullParameterException;
 import com.mapps.exceptions.RawDataUnitNotFoundException;
 import com.mapps.model.RawDataUnit;
 
@@ -14,7 +15,7 @@ public interface RawDataUnitDAO {
      * This method adds a RawDataUnit to the database.
      * @param rawDataUnit - The RawDataUnit to add to the database
      */
-    void addRawDataUnit(RawDataUnit rawDataUnit);
+    void addRawDataUnit(RawDataUnit rawDataUnit) throws NullParameterException;
 
     /**
      * This method deletes a RawDataUnit from the database.
@@ -28,7 +29,7 @@ public interface RawDataUnitDAO {
      * @param rawDataUnit - The RawDataUnit identification id to find the RawDataUnit to update
      * @throws RawDataUnitNotFoundException  - If the RawDataUnit is not in the database
      */
-    void updateRawDataUnit(RawDataUnit rawDataUnit) throws RawDataUnitNotFoundException;
+    void updateRawDataUnit(RawDataUnit rawDataUnit) throws RawDataUnitNotFoundException, NullParameterException;
 
     /**
      * This method gets a RawDataUnit from the database

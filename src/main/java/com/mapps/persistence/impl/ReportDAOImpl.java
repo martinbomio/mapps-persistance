@@ -1,5 +1,6 @@
 package com.mapps.persistence.impl;
 
+import com.mapps.exceptions.NullParameterException;
 import com.mapps.exceptions.ReportAlreadyExistException;
 import com.mapps.exceptions.ReportNotFoundException;
 import com.mapps.model.Report;
@@ -23,13 +24,16 @@ public class ReportDAOImpl implements ReportDAO {
     EntityManager entityManager;
 
     @Override
-    public void addReport(Report report)throws ReportAlreadyExistException {
-
+    public void addReport(Report report) throws ReportAlreadyExistException, NullParameterException {
+        if(report!=null){
         if(isInDatabase(report)){
             throw new ReportAlreadyExistException();
         }
         logger.info("a Report was added to the database");
         entityManager.persist(report);
+        }else{
+            throw new NullParameterException();
+        }
     }
     private boolean isInDatabase(Report report){
         boolean aux=true;
@@ -53,11 +57,15 @@ public class ReportDAOImpl implements ReportDAO {
     }
 
     @Override
-    public void updateReport(Report report) throws ReportNotFoundException {
+    public void updateReport(Report report) throws ReportNotFoundException, NullParameterException {
+        if(report!=null){
         Report repAux=getReportById(report.getId());
         if(repAux!=null){
             entityManager.merge(report);
             logger.info("A Report was updated in the database");
+        }
+        }else{
+            throw new NullParameterException();
         }
     }
 

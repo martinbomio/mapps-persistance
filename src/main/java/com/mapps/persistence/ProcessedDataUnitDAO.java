@@ -1,5 +1,6 @@
 package com.mapps.persistence;
 
+import com.mapps.exceptions.NullParameterException;
 import com.mapps.exceptions.ProcessedDataUnitNotFoundException;
 import com.mapps.model.ProcessedDataUnit;
 
@@ -15,7 +16,7 @@ public interface ProcessedDataUnitDAO {
      * This method adds a ProcessedDataUnit to the database.
      * @param processedDataUnit - The ProcessedDataUnit to add to the database
      */
-    void addProcessedDataUnit(ProcessedDataUnit processedDataUnit);
+    void addProcessedDataUnit(ProcessedDataUnit processedDataUnit) throws NullParameterException;
 
     /**
      * This method deletes a ProcessedDataUnit from the database.
@@ -29,7 +30,7 @@ public interface ProcessedDataUnitDAO {
      * @param processedDataUnit - The ProcessedDataUnit identification id to find the ProcessedDataUnit to update
      * @throws ProcessedDataUnitNotFoundException  - If the ProcessedDataUnit is not in the database
      */
-    void updateProcessedDataUnit(ProcessedDataUnit processedDataUnit) throws ProcessedDataUnitNotFoundException;
+    void updateProcessedDataUnit(ProcessedDataUnit processedDataUnit) throws ProcessedDataUnitNotFoundException, NullParameterException;
 
     /**
      * This method gets a ProcessedDataUnit from the database

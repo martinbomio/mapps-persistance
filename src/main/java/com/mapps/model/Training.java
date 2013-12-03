@@ -32,7 +32,7 @@ public class Training {
     Long id;
     @Column(nullable=false,unique = true)
     private String name;
-    @Column(nullable=false)
+    //@Column(nullable=false)
     private Date date;
     private int participants;
     @Column(nullable=false)
@@ -64,7 +64,7 @@ public class Training {
 
     public Training(String name, Date date, int participants, long latOrigin, long longOrigin, int minBPM,
                     int maxBPM, Map<Athlete, Device> mapAthleteDevice, List<Report> reports, Sport sport,
-                    Map<User, Permission> mapUserPermission, boolean started) {
+                    Map<User, Permission> mapUserPermission) {
         this.name = name;
         this.date = date;
         this.participants = participants;
@@ -76,7 +76,7 @@ public class Training {
         this.reports = reports;
         this.sport = sport;
         this.mapUserPermission = mapUserPermission;
-        this.started = started;
+        this.started = true;
     }
 
     public Long getId() {

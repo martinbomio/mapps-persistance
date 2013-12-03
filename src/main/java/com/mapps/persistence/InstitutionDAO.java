@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.mapps.exceptions.InstitutionAlreadyExistException;
 import com.mapps.exceptions.InstitutionNotFoundException;
+import com.mapps.exceptions.NullParameterException;
 import com.mapps.model.Institution;
 
 import javax.ejb.Local;
@@ -19,13 +20,8 @@ public interface InstitutionDAO {
      * @param institution - The Institution added to the database
      *@throws InstitutionAlreadyExistException
      */
-     void addInstitution(Institution institution)throws InstitutionAlreadyExistException;
+     void addInstitution(Institution institution) throws InstitutionAlreadyExistException, NullParameterException;
 
-    /**
-     * This method returns true if the Institution is in the database.
-     * @param institution - The Institution added to the database
-     */
-    boolean isInDatabase(Institution institution);
 
     /**
      * This method deletes a Institution from the database.
@@ -39,7 +35,7 @@ public interface InstitutionDAO {
      * @param institution - The Institution identification id to find the Institution to update
      * @throws InstitutionNotFoundException  - If the  is not in the database
      */
-    void updateInstitution(Institution institution) throws InstitutionNotFoundException;
+    void updateInstitution(Institution institution) throws InstitutionNotFoundException, NullParameterException;
 
     /**
      * This method gets a Institution from the database

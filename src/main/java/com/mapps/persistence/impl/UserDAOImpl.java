@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import com.mapps.exceptions.NullParameterException;
 import com.mapps.exceptions.UserAlreadyExistException;
 import org.apache.log4j.Logger;
 
@@ -25,13 +26,16 @@ public class UserDAOImpl implements UserDAO {
 
 
     @Override
-    public void addUser(User user) throws UserAlreadyExistException{
-
+    public void addUser(User user) throws UserAlreadyExistException, NullParameterException {
+        if(user!=null){
         if(isInDatabase(user)){
             throw new UserAlreadyExistException();
         }
         logger.info("a user was added to the database");
         entityManager.persist(user);
+        }else{
+          throw new NullParameterException();
+        }
     }
 
     private List<User> getByUsername(User user){
@@ -62,11 +66,15 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public void updateUser(User user) throws UserNotFoundException {
+    public void updateUser(User user) throws UserNotFoundException, NullParameterException {
+        if(user!=null){
         User userAux=getUserByUsername(user.getName());
         if(userAux!=null){
             entityManager.merge(user);
             logger.info("A user was updated in the database");
+        }
+        }else{
+            throw new NullParameterException();
         }
     }
 
