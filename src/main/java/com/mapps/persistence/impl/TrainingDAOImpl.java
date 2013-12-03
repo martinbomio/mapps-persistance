@@ -3,6 +3,8 @@ package com.mapps.persistence.impl;
 import com.mapps.exceptions.NullParameterException;
 import com.mapps.exceptions.TrainingAlreadyExistException;
 import com.mapps.exceptions.TrainingNotFoundException;
+import com.mapps.model.Athlete;
+import com.mapps.model.Device;
 import com.mapps.model.Training;
 import com.mapps.persistence.TrainingDAO;
 import org.apache.log4j.Logger;
@@ -13,6 +15,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -117,7 +120,23 @@ public class TrainingDAOImpl implements TrainingDAO {
             throw new TrainingNotFoundException();
         }
         return results.get(0);
-
-
     }
+
+    @Override
+    public Training getTrainingOfDevice(Device device,Date date) throws TrainingNotFoundException, NullParameterException {
+
+        if(device!=null){
+        Query query=entityManager.createQuery("select t from Training t join t.mapAthleteDevice m where (m = :key and t.date=:date)");
+           query.setParameter("key",device);
+           query.setParameter("date",date);
+        List<Training> results=query.getResultList();
+        if(results.size()!=1) {
+            throw new TrainingNotFoundException();
+        }
+        return results.get(0);
+        }else{
+           throw new NullParameterException();
+        }
+
+        }
 }

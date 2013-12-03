@@ -3,9 +3,12 @@ package com.mapps.persistence;
 import com.mapps.exceptions.NullParameterException;
 import com.mapps.exceptions.TrainingAlreadyExistException;
 import com.mapps.exceptions.TrainingNotFoundException;
+import com.mapps.model.Athlete;
+import com.mapps.model.Device;
 import com.mapps.model.Training;
 
 import javax.ejb.Local;
+import java.util.Date;
 
 /**
  * TrainingDAO interface
@@ -67,4 +70,8 @@ public interface TrainingDAO {
  * @throws TrainingNotFoundException - If the Training is not in the database
   */
     public boolean isTrainingStarted(String name) throws TrainingNotFoundException;
+
+
+
+    public Training getTrainingOfDevice(Device device,Date date) throws TrainingNotFoundException, NullParameterException;
 }

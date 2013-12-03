@@ -38,7 +38,7 @@ public class DeviceDAOImpl implements DeviceDAO{
     }
 
     private List<Device> getByDir(Device device){
-        Query query=entityManager.createQuery("from Devices as d where d.dirLow=:dir");
+        Query query=entityManager.createQuery("from Device as d where d.dirLow=:dir");
         query.setParameter("dir",device.getDirLow());
         List<Device> results=query.getResultList();
         return results;
@@ -92,7 +92,7 @@ public class DeviceDAOImpl implements DeviceDAO{
 
     @Override
     public Device getDeviceByDir(String dirLow) throws DeviceNotFoundException {
-        Query query=entityManager.createQuery("from Devices as d where d.dirLow=:dir");
+        Query query=entityManager.createQuery("from Device as d where d.dirLow=:dir");
         query.setParameter("dir",dirLow);
         List<Device> results=query.getResultList();
         if(results.size()!=1){
