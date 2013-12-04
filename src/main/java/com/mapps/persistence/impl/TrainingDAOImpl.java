@@ -123,20 +123,17 @@ public class TrainingDAOImpl implements TrainingDAO {
     }
 
     @Override
-    public Training getTrainingOfDevice(Device device,Date date) throws TrainingNotFoundException, NullParameterException {
-
-        if(device!=null){
-        Query query=entityManager.createQuery("select t from Training t join t.mapAthleteDevice m where (m = :key and t.date=:date)");
-           query.setParameter("key",device);
-           query.setParameter("date",date);
+    public Training getTrainingOfDevice(String dirLow,Date date) throws TrainingNotFoundException {
+        Query query=entityManager.createQuery("select t from Training t join t.mapAthleteDevice m " +
+                "where (m.dirLow = :key and t.date=:date)");
+        query.setParameter("key",dirLow);
+        query.setParameter("date",date);
         List<Training> results=query.getResultList();
         if(results.size()!=1) {
             throw new TrainingNotFoundException();
         }
         return results.get(0);
-        }else{
-           throw new NullParameterException();
-        }
+
 
         }
 }

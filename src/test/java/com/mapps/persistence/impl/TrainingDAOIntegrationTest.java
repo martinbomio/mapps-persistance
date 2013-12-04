@@ -93,7 +93,7 @@ public class TrainingDAOIntegrationTest {
         Athlete returnedAthlete = athleteDAO.getAthleteByIdDocument(testAthlete.getIdDocument());
         Device returnedDevice = deviceDAO.getDeviceByDir(testDevice.getDirLow());
 
-        Training prueba= trainingDAO.getTrainingOfDevice(returnedDevice,dNow);
+        Training prueba= trainingDAO.getTrainingOfDevice(returnedDevice.getDirLow(),dNow);
         System.out.println(prueba.getName());
 
       //  Assert.assertEquals(testTraining.getName(), returnedTraining.getName());

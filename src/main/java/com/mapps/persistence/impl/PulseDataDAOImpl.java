@@ -34,7 +34,7 @@ public class PulseDataDAOImpl implements PulseDataDAO {
         PulseData pulseDataAux=getPulseDataById(pulseDataId);
         if(pulseDataAux!=null){
             entityManager.remove(pulseDataAux);
-            logger.info("a pulseData was removed from the database");
+           logger.info("a pulseData was removed from the database");
         }
     }
 

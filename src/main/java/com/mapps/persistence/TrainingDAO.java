@@ -71,7 +71,14 @@ public interface TrainingDAO {
   */
     public boolean isTrainingStarted(String name) throws TrainingNotFoundException;
 
+    /**
+     * This method returns a training of a device and a date
+     * @param dirLow - the Device identification date to find the Training in the database
+     * @param date - the Date identification of the training
+     * @return - the training of the device and the date
+     * @throws TrainingNotFoundException - If the Training is not in the database
+     * @throws TrainingNotFoundException - If the Training is not in the database
+     */
 
-
-    public Training getTrainingOfDevice(Device device,Date date) throws TrainingNotFoundException, NullParameterException;
+    public Training getTrainingOfDevice(String dirLow,Date date) throws TrainingNotFoundException;
 }
