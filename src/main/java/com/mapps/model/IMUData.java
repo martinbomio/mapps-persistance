@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.apache.log4j.Logger;
 
@@ -18,7 +19,8 @@ import com.mapps.interfaces.DataParser;
 @Entity
 @Table(name = "IMUData")
 public class IMUData implements DataParser{
-    //Logger logger = Logger.getLogger(IMUData.class);
+    @Transient
+    Logger logger = Logger.getLogger(IMUData.class);
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     Long id;
@@ -109,7 +111,7 @@ public class IMUData implements DataParser{
     @Override
     public void populate(String data) {
         if (data == null){
-            //logger.error("Error parsing null data");
+            logger.error("Error parsing null data");
             throw new IllegalArgumentException();
         }
         String[] split = data.split("/");

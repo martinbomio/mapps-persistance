@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.apache.log4j.Logger;
 
@@ -17,7 +18,8 @@ import com.mapps.interfaces.DataParser;
 @Entity
 @Table(name = "PulseData")
 public class PulseData implements DataParser{
-   //Logger log = Logger.getLogger(PulseData.class);
+    @Transient
+    Logger log = Logger.getLogger(PulseData.class);
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     Long id;
@@ -53,7 +55,7 @@ public class PulseData implements DataParser{
     @Override
     public void populate(String data) {
         if (data == null){
-            //log.error("Error parsing null data");
+            log.error("Error parsing null data");
             throw new IllegalArgumentException();
         }
         this.BPM = Integer.parseInt(data);
