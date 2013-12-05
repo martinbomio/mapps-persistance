@@ -68,45 +68,66 @@ public class TrainingDAOIntegrationTest {
             ejbContainer.close();
         }
     }
+
     @Test
-    public void testTraining() throws TrainingAlreadyExistException, TrainingNotFoundException, NullParameterException, AthleteAlreadyExistException, DeviceAlreadyExistException, InstitutionAlreadyExistException, AthleteNotFoundException, DeviceNotFoundException {
+    public void testAddTraining() throws NullParameterException, TrainingAlreadyExistException, TrainingNotFoundException {
+        testTraining=new Training("hola",null,0,0,0,0,0,null,null,null,null);
+        trainingDAO.addTraining(testTraining);
+        Training returnedTraining = trainingDAO.getTrainingByName(testTraining.getName());
+        Assert.assertEquals(testTraining.getName(), returnedTraining.getName());
+    }
+
+    @Test
+    public void testDeleteTraining() throws NullParameterException, TrainingAlreadyExistException, TrainingNotFoundException {
+        testTraining=new Training("hola",null,0,0,0,0,0,null,null,null,null);
+        trainingDAO.addTraining(testTraining);
+        Training returnedTraining = trainingDAO.getTrainingByName(testTraining.getName());
+
+        trainingDAO.deleteTraining(returnedTraining.getId());
+        try{
+        Training testAux = trainingDAO.getTrainingByName(testTraining.getName());
+        }catch(TrainingNotFoundException e){
+            Assert.assertTrue(true);
+        }
+
+
+    }
+    @Test
+    public void updateTraining() throws NullParameterException, TrainingAlreadyExistException, TrainingNotFoundException {
+        testTraining=new Training("hola",null,0,0,0,0,0,null,null,null,null);
+        trainingDAO.addTraining(testTraining);
+        Training returnedTraining = trainingDAO.getTrainingByName(testTraining.getName());
+        returnedTraining.setMaxBPM(5);
+        trainingDAO.updateTraining(returnedTraining);
+        Training testAux = trainingDAO.getTrainingByName(testTraining.getName());
+        if(testAux.getMaxBPM()==5){
+            Assert.assertTrue(true);
+        }
+
+    }
+
+    @Test
+    public void testGetTrainingOfDevice() throws InstitutionAlreadyExistException, NullParameterException, AthleteAlreadyExistException, DeviceAlreadyExistException, TrainingAlreadyExistException, DeviceNotFoundException, TrainingNotFoundException {
         Date dNow = new Date( );
         testInstitution=new Institution("hola",null,"URUGUAY");
         testAthlete=new Athlete(null, null, null,null,
                 null,1.5, 1.2,"44475992",testInstitution);
         testDevice=new Device("0013A200","40813E2A",55,testInstitution);
-
         HashMap<Athlete,Device> mapAthleteDevice=new HashMap<Athlete,Device>();
         mapAthleteDevice.put(testAthlete,testDevice);
-
         testTraining=new Training("hola",dNow,0,0,0,0,0,mapAthleteDevice,null,null,null);
 
         institutionDAO.addInstitution(testInstitution);
         athleteDAO.addAthlete(testAthlete);
         deviceDAO.addDevice(testDevice);
         trainingDAO.addTraining(testTraining);
-        Training returnedTraining = trainingDAO.getTrainingByName(testTraining.getName());
 
-        if(returnedTraining.isStarted()){
-            System.out.println("--------------");
-        }
-        Athlete returnedAthlete = athleteDAO.getAthleteByIdDocument(testAthlete.getIdDocument());
         Device returnedDevice = deviceDAO.getDeviceByDir(testDevice.getDirLow());
-
-        Training prueba= trainingDAO.getTrainingOfDevice(returnedDevice.getDirLow(),dNow);
-        System.out.println(prueba.getName());
-
-      //  Assert.assertEquals(testTraining.getName(), returnedTraining.getName());
-
-      //  try{
-      //          trainingDAO.deleteTraining(returnedTraining.getId());
-      //          trainingDAO.getTrainingByName(returnedTraining.getName());
-      //      }catch (TrainingNotFoundException e){
-                    //TEST deleteAthlete
-      //              Assert.assertTrue(true);
-      //          }
+        Training testAux= trainingDAO.getTrainingOfDevice(returnedDevice.getDirLow(),dNow);
+        if((testAux.getName()).equals("hola")){
+            Assert.assertTrue(true);
+        }
 
     }
-
 
 }
