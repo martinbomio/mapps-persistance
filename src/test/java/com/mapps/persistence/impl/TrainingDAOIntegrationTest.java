@@ -85,7 +85,7 @@ public class TrainingDAOIntegrationTest {
 
     @Test
     public void testDeleteTraining() throws NullParameterException, TrainingAlreadyExistException, TrainingNotFoundException {
-        testTraining=new Training("hola1",null,0,0,0,0,0,null,null,null,null);
+        testTraining=new Training("hola2",null,0,0,0,0,0,null,null,null,null);
         trainingDAO.addTraining(testTraining);
         Training returnedTraining = trainingDAO.getTrainingByName(testTraining.getName());
 
@@ -100,15 +100,15 @@ public class TrainingDAOIntegrationTest {
     }
     @Test
     public void updateTraining() throws NullParameterException, TrainingAlreadyExistException, TrainingNotFoundException {
-        testTraining=new Training("hola2",null,0,0,0,0,0,null,null,null,null);
+        testTraining=new Training("hola3",null,0,0,0,0,0,null,null,null,null);
         trainingDAO.addTraining(testTraining);
         Training returnedTraining = trainingDAO.getTrainingByName(testTraining.getName());
         returnedTraining.setMaxBPM(5);
         trainingDAO.updateTraining(returnedTraining);
         Training testAux = trainingDAO.getTrainingByName(testTraining.getName());
-        if(testAux.getMaxBPM()==5){
-            Assert.assertTrue(true);
-        }
+
+        Assert.assertEquals(testAux.getMaxBPM(),5);
+
 
     }
 
@@ -121,7 +121,7 @@ public class TrainingDAOIntegrationTest {
         testDevice=new Device("0013A200","40813E2A",55,testInstitution);
         HashMap<Athlete,Device> mapAthleteDevice=new HashMap<Athlete,Device>();
         mapAthleteDevice.put(testAthlete,testDevice);
-        testTraining=new Training("hola",dNow,0,0,0,0,0,mapAthleteDevice,null,null,null);
+        testTraining=new Training("hola4",dNow,0,0,0,0,0,mapAthleteDevice,null,null,null);
 
         institutionDAO.addInstitution(testInstitution);
         athleteDAO.addAthlete(testAthlete);
@@ -130,7 +130,9 @@ public class TrainingDAOIntegrationTest {
 
         Device returnedDevice = deviceDAO.getDeviceByDir(testDevice.getDirLow());
         Training testAux= trainingDAO.getTrainingOfDevice(returnedDevice.getDirLow(),dNow);
-        Assert.assertEquals(testAux.getName(), "hola");
+
+            Assert.assertEquals(testAux.getName(),"hola4");
+
 
     }
 
