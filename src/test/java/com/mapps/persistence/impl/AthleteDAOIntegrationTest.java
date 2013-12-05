@@ -1,30 +1,24 @@
 package com.mapps.persistence.impl;
 
+import junit.framework.Assert;
+
+import java.util.List;
 import javax.ejb.embeddable.EJBContainer;
 import javax.naming.NamingException;
 
-import com.mapps.exceptions.InstitutionAlreadyExistException;
-import com.mapps.exceptions.NullParameterException;
-import com.mapps.model.Institution;
-import com.mapps.persistence.InstitutionDAO;
 import org.junit.AfterClass;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.mapps.exceptions.AthleteAlreadyExistException;
 import com.mapps.exceptions.AthleteNotFoundException;
+import com.mapps.exceptions.InstitutionAlreadyExistException;
+import com.mapps.exceptions.NullParameterException;
 import com.mapps.model.Athlete;
+import com.mapps.model.Institution;
 import com.mapps.persistence.AthleteDAO;
-
-import org.junit.*;
-
-
-import javax.ejb.embeddable.EJBContainer;
-import javax.naming.NamingException;
-import java.util.ArrayList;
-import java.util.List;
+import com.mapps.persistence.InstitutionDAO;
 
 import static org.junit.Assert.assertTrue;
 
@@ -85,8 +79,7 @@ public class AthleteDAOIntegrationTest {
         Athlete returnedAthlete = athleteDAO.getAthleteByIdDocument(testAthlete.getIdDocument());
         List<Athlete> list=athleteDAO.getAllAthletesByInstitution(testInstitution.getName());
 
-        System.out.println(list.get(0).getIdDocument());
-
+        Assert.assertEquals(testAthlete.getIdDocument(), returnedAthlete.getIdDocument());
 
        // for(int i=0;i<list.size();i++){
        //     System.out.println(list.get(i).getIdDocument());

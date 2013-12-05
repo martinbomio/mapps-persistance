@@ -1,6 +1,23 @@
 package com.mapps.persistence.impl;
 
-import com.mapps.exceptions.*;
+import java.util.Date;
+import java.util.HashMap;
+import javax.ejb.embeddable.EJBContainer;
+import javax.naming.NamingException;
+
+import org.junit.AfterClass;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+import com.mapps.exceptions.AthleteAlreadyExistException;
+import com.mapps.exceptions.DeviceAlreadyExistException;
+import com.mapps.exceptions.DeviceNotFoundException;
+import com.mapps.exceptions.InstitutionAlreadyExistException;
+import com.mapps.exceptions.NullParameterException;
+import com.mapps.exceptions.TrainingAlreadyExistException;
+import com.mapps.exceptions.TrainingNotFoundException;
 import com.mapps.model.Athlete;
 import com.mapps.model.Device;
 import com.mapps.model.Institution;
@@ -9,17 +26,6 @@ import com.mapps.persistence.AthleteDAO;
 import com.mapps.persistence.DeviceDAO;
 import com.mapps.persistence.InstitutionDAO;
 import com.mapps.persistence.TrainingDAO;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.Assert;
-
-import javax.ejb.embeddable.EJBContainer;
-import javax.naming.NamingException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import static org.junit.Assert.assertTrue;
 
@@ -79,7 +85,7 @@ public class TrainingDAOIntegrationTest {
 
     @Test
     public void testDeleteTraining() throws NullParameterException, TrainingAlreadyExistException, TrainingNotFoundException {
-        testTraining=new Training("hola",null,0,0,0,0,0,null,null,null,null);
+        testTraining=new Training("hola1",null,0,0,0,0,0,null,null,null,null);
         trainingDAO.addTraining(testTraining);
         Training returnedTraining = trainingDAO.getTrainingByName(testTraining.getName());
 
@@ -94,7 +100,7 @@ public class TrainingDAOIntegrationTest {
     }
     @Test
     public void updateTraining() throws NullParameterException, TrainingAlreadyExistException, TrainingNotFoundException {
-        testTraining=new Training("hola",null,0,0,0,0,0,null,null,null,null);
+        testTraining=new Training("hola2",null,0,0,0,0,0,null,null,null,null);
         trainingDAO.addTraining(testTraining);
         Training returnedTraining = trainingDAO.getTrainingByName(testTraining.getName());
         returnedTraining.setMaxBPM(5);
@@ -109,7 +115,7 @@ public class TrainingDAOIntegrationTest {
     @Test
     public void testGetTrainingOfDevice() throws InstitutionAlreadyExistException, NullParameterException, AthleteAlreadyExistException, DeviceAlreadyExistException, TrainingAlreadyExistException, DeviceNotFoundException, TrainingNotFoundException {
         Date dNow = new Date( );
-        testInstitution=new Institution("hola",null,"URUGUAY");
+        testInstitution=new Institution("hola3",null,"URUGUAY");
         testAthlete=new Athlete(null, null, null,null,
                 null,1.5, 1.2,"44475992",testInstitution);
         testDevice=new Device("0013A200","40813E2A",55,testInstitution);
@@ -124,9 +130,7 @@ public class TrainingDAOIntegrationTest {
 
         Device returnedDevice = deviceDAO.getDeviceByDir(testDevice.getDirLow());
         Training testAux= trainingDAO.getTrainingOfDevice(returnedDevice.getDirLow(),dNow);
-        if((testAux.getName()).equals("hola")){
-            Assert.assertTrue(true);
-        }
+        Assert.assertEquals(testAux.getName(), "hola");
 
     }
 

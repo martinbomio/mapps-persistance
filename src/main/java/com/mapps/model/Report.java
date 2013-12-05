@@ -25,11 +25,8 @@ public class Report {
     private Date createdDate;
     @Column(nullable=false,unique=true)
     private String name;
-    private ReportType type;
-
-    public enum ReportType{
-        TRAINNING, ATHLETE, DAILY, MENSUAL;
-    }
+    @Enumerated(EnumType.ORDINAL)
+    private ReportType reportType;
 
     public Report() {
     }
@@ -39,7 +36,7 @@ public class Report {
         this.url = url;
         this.createdDate = createdDate;
         this.name = name;
-        this.type = type;
+        this.reportType = type;
     }
 
     public Long getId() {
@@ -74,12 +71,11 @@ public class Report {
         this.name = name;
     }
 
-    @Enumerated(EnumType.ORDINAL)
     public ReportType getType() {
-        return type;
+        return reportType;
     }
 
     public void setType(ReportType type) {
-        this.type = type;
+        this.reportType = type;
     }
 }
